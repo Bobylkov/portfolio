@@ -1,0 +1,23 @@
+name: "Ozon Rocket"
+anchor: ozon-rocket
+order: 3
+role: "Дизайнер"
+period: "2021-2023"
+icon: "/media/icons/ozon.png"
+iconAlt: "Ozon"
+iconBorder: false
+cover:
+  kind: image
+  src: "/media/home/ozon-rocket.webp"
+  alt: "Курьер Ozon Rocket в фирменной синей куртке со спины"
+  style: "display: block; width: 100%; height: 240px; border-radius: 24px; background: #0A6CFF; object-fit: cover; object-position: 0% 3.2154%; object-view-box: inset(1.1447% 3.6104% 34.4566% 0%)"
+meta: "Ozon Rocket · ведущий дизайнер · 2023 · web"
+title: "Ozon Rocket — новый сайт сервиса доставки для интернет-магазинов"
+paragraphs:
+  - "Ozon Rocket это сервис доставки из любых магазинов с помощью логистики Ozon<br>Я спроектировал новый сайт, калькулятор доставки и оформления заказа"
+findings:
+  title: "Что показали тесты прототипа"
+  items:
+    - "Всё нужное находят на первой странице — на старом сайте не находили"
+    - "Понятны ключевые сценарии: отслеживание, расчёт стоимости, разница пунктов выдачи и приёма"
+    - "Калькулятор воспринимают как привычный и удобный"

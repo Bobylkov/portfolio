@@ -1,0 +1,25 @@
+---
+// Скриншот профиля с пометками синим маркером: обводки и стрелки прорисовываются
+// по очереди (класс mk-draw), подписи — шрифтом Caveat. Координаты — в системе 2000×1250.
+import CoverFrame from './CoverFrame.astro';
+
+interface Props {
+  href?: string;
+  src: string;
+  alt: string;
+}
+const { href, src, alt } = Astro.props;
+const stroke = 'fill: none; stroke: #1C4FD8; stroke-linecap: round; stroke-linejoin: round';
+const hand = "font-family: Caveat, 'Comic Sans MS', cursive; font-weight: 700; fill: #1C4FD8";
+---
+<CoverFrame href={href} style="position: relative; display: block; aspect-ratio: 16 / 10; background: #FFFFFF; border-radius: 24px; overflow: hidden; box-shadow: inset 0 0 0 1px #EDEDEA; text-decoration: none">
+  <img src={src} alt={alt} loading="lazy" decoding="async" style="display: block; width: 100%; height: 100%; object-fit: cover" />
+  <svg aria-hidden="true" viewBox="0 0 2000 1250" style="position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible">
+    <path class="map-anim mk-draw" pathLength="1" d="M 372 512 C 352 432, 530 395, 690 398 C 850 401, 942 440, 930 500 C 918 560, 730 587, 570 580 C 420 573, 346 546, 358 488 C 364 458, 405 438, 455 426" style={`${stroke}; stroke-width: 6`}></path>
+    <path class="map-anim mk-draw" pathLength="1" d="M 173 383 C 190 448, 255 494, 338 494 M 308 474 L 341 494 L 309 514" style={`${stroke}; stroke-width: 5.5; animation-delay: 0.45s`}></path>
+    <text transform="rotate(-6 167 300)" style={`${hand}; font-size: 57px`}><tspan x="57" y="287">главное</tspan><tspan x="57" y="343">до приёма</tspan></text>
+    <path class="map-anim mk-draw" pathLength="1" d="M 1090 915 C 1080 870, 1170 853, 1240 855 C 1322 857, 1380 876, 1374 907 C 1368 939, 1290 957, 1215 955 C 1138 953, 1078 941, 1084 904 C 1087 887, 1104 877, 1126 870" style={`${stroke}; stroke-width: 6; animation-delay: 1.2s`}></path>
+    <path class="map-anim mk-draw" pathLength="1" d="M 1700 838 C 1600 818, 1430 816, 1338 848 M 1356 824 L 1336 849 L 1366 856" style={`${stroke}; stroke-width: 5; animation-delay: 1.6s`}></path>
+    <text transform="rotate(-4 1820 830)" style={`${hand}; font-size: 50px`}><tspan x="1712" y="822">подбор врача</tspan><tspan x="1712" y="872">по симптомам</tspan></text>
+  </svg>
+</CoverFrame>

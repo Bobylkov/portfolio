@@ -1,0 +1,14 @@
+---
+interface Props {
+  items: { value: string; label: string }[];
+}
+const { items } = Astro.props;
+---
+<div class="nums">
+  {items.map((n) => (
+    <div style="background: #F4F4F2; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px">
+      <span style="font-size: 22px; font-weight: 600">{n.value}</span>
+      <span style="font-size: 12px; color: #6B6B6B; line-height: 1.35">{n.label}</span>
+    </div>
+  ))}
+</div>

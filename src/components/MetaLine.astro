@@ -1,0 +1,14 @@
+---
+import CompanyIcon from './CompanyIcon.astro';
+
+interface Props {
+  icon: string;
+  border?: boolean;
+  text: string;
+}
+const { icon, border, text } = Astro.props;
+---
+<div style="display: flex; gap: 10px; align-items: center; font-size: 13px; color: #8A8A86">
+  <CompanyIcon src={icon} size={20} border={border} />
+  <span set:html={text} />
+</div>

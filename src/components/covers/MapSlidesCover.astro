@@ -1,0 +1,26 @@
+---
+// Телефон, в котором по кругу сменяются 4 экрана карты врачей (12 секунд на цикл).
+// Анимации mapS1–mapS4 и отключение при prefers-reduced-motion — в global.css.
+import CoverFrame from './CoverFrame.astro';
+
+interface Props {
+  href?: string;
+  slides: { src: string; alt: string }[];
+}
+const { href, slides } = Astro.props;
+const [first, ...rest] = slides;
+const extra = [
+  'transform-origin: 55% 45%; animation: mapS2 12s ease-in-out infinite',
+  'transform-origin: 50% 45%; animation: mapS3 12s ease-in-out infinite',
+  'animation: mapS4 12s ease-in-out infinite',
+];
+---
+<CoverFrame href={href} style="position: relative; display: block; aspect-ratio: 16 / 10; background: #F4F4F2; border-radius: 24px; overflow: hidden; text-decoration: none; container-type: inline-size">
+  <div style="position: absolute; left: 33cqw; top: 1.9cqw; width: 35.4cqw; border: 1.4cqw solid #1C1C1E; border-radius: 6cqw; overflow: hidden; background: #FFFFFF; box-shadow: 0 2cqw 6cqw rgba(17, 17, 17, 0.12); height: 76.35cqw">
+    <img class="map-anim" src={first.src} alt={first.alt} style="display: block; width: 100%; height: auto; animation: mapS1 12s ease-in-out infinite" />
+    {rest.map((s, i) => (
+      <img class="map-anim" src={s.src} alt={s.alt} style={`position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; ${extra[i]}`} />
+    ))}
+    <span aria-hidden="true" style="position: absolute; top: 1.2cqw; left: 50%; transform: translateX(-50%); width: 30%; height: 3cqw; border-radius: 3cqw; background: #1C1C1E"></span>
+  </div>
+</CoverFrame>

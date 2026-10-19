@@ -1,0 +1,54 @@
+---
+import CaseSidebar from '../../components/CaseSidebar.astro';
+import Footer from '../../components/Footer.astro';
+import MetaLine from '../../components/MetaLine.astro';
+import Tags from '../../components/Tags.astro';
+import { site } from '../../data/site';
+import Base from '../../layouts/Base.astro';
+import { caseUrl, getCompanies, getPublishedCases, iconOf, nextCaseOf, type Case } from '../../lib/content';
+import { prepareBody, tocFromBody } from '../../lib/html';
+
+export async function getStaticPaths() {
+  const cases = await getPublishedCases();
+  return cases.map((entry) => ({ params: { slug: entry.id }, props: { entry } }));
+}
+
+const { entry } = Astro.props as { entry: Case };
+const cases = await getPublishedCases();
+const companies = await getCompanies();
+const d = entry.data;
+const icon = iconOf(entry, companies);
+const next = nextCaseOf(entry, cases);
+// Тело кейса — HTML из канваса, вставляется как есть
+const body = await prepareBody(entry.body ?? '');
+const toc = d.toc ?? tocFromBody(body);
+const plain = (s: string) => s.replace(/<[^>]+>/g, '');
+---
+<Base kind="case" title={`${d.seoTitle ?? d.title} — ${site.name}`} description={d.lead && plain(d.lead)} image={d.card.cover.kind === 'image' ? d.card.cover.src : undefined}>
+  <CaseSidebar current={entry} cases={cases} companies={companies} toc={toc} />
+
+  <main style="flex: 0 1 740px; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 64px">
+    <section style="display: flex; flex-direction: column; gap: 18px">
+      {d.meta && <MetaLine icon={icon.src} border={icon.border} text={d.meta} />}
+      <h1 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -0.015em; max-width: 700px" set:html={d.heading ?? d.title} />
+      {d.lead && <p style="margin: 0; line-height: 1.6; color: #444444; max-width: 620px; font-size: 16px" set:html={d.lead} />}
+      {d.links && (
+        <div style="display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; color: #6B6B6B">
+          {d.links.map((l) => <a href={l.href} style="text-decoration: none; font-weight: 500; color: rgb(17, 17, 17)">{l.label}</a>)}
+        </div>
+      )}
+      {d.tags && <Tags items={d.tags} />}
+      {d.note && <p style="margin: 0; font-size: 13px; color: #6B6B6B; line-height: 1.4; max-width: 620px" set:html={d.note} />}
+    </section>
+
+    <Fragment set:html={body} />
+
+    {next && (
+      <a href={caseUrl(next)} style="display: flex; justify-content: space-between; gap: 12px; padding: 20px 0; border-top: 1px solid #EDEDEA; text-decoration: none; font-weight: 500">
+        <span>Следующий кейс: {next.data.title}</span><span>→</span>
+      </a>
+    )}
+
+    <Footer />
+  </main>
+</Base>

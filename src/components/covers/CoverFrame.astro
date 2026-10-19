@@ -1,0 +1,10 @@
+---
+// Обёртка обложки: ссылка на кейс или просто блок, если страницы ещё нет
+interface Props {
+  href?: string;
+  style: string;
+}
+const { href, style } = Astro.props;
+const Tag = href ? 'a' : 'div';
+---
+<Tag href={href} style={style}><slot /></Tag>

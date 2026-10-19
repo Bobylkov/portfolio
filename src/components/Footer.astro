@@ -1,0 +1,14 @@
+---
+import { site } from '../data/site';
+
+interface Props {
+  /** mobile — копия футера внизу сайдбара кейса, видна только на телефоне */
+  mobile?: boolean;
+}
+const { mobile = false } = Astro.props;
+const style = `display: ${mobile ? 'none' : 'flex'}; flex-wrap: wrap; justify-content: space-between; gap: 12px; font-size: 13px; color: #6B6B6B`;
+---
+<footer class:list={[{ mfoot: mobile }]} style={style}>
+  <span>{site.footer}</span>
+  <span>{site.year}</span>
+</footer>

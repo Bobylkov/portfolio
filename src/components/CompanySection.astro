@@ -1,0 +1,31 @@
+---
+// Блок компании в ленте: обложка, описание, теги, итоги тестов
+import type { Company } from '../lib/content';
+import MetaLine from './MetaLine.astro';
+import Tags from './Tags.astro';
+
+interface Props {
+  company: Company;
+}
+const { data } = Astro.props.company;
+const { cover } = data;
+---
+<section id={data.anchor} style="display: flex; flex-direction: column; gap: 18px">
+  {cover.kind === 'video' ? (
+    <video src={cover.src} autoplay muted loop playsinline preload="metadata" aria-label={cover.alt} style={cover.style}></video>
+  ) : (
+    <img src={cover.src} alt={cover.alt} style={cover.style} />
+  )}
+  <MetaLine icon={data.icon} border={data.iconBorder} text={data.meta} />
+  <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em" set:html={data.title} />
+  {data.paragraphs.map((p) => <p style="margin: 0; line-height: 1.55; color: #444444; max-width: 620px" set:html={p} />)}
+  {data.tags && <Tags items={data.tags} />}
+  {data.findings && (
+    <div style="display: flex; flex-direction: column; gap: 8px; max-width: 620px">
+      <span style="font-size: 13px; color: #8A8A86">{data.findings.title}</span>
+      <div style="display: flex; flex-direction: column; gap: 6px; line-height: 1.5; color: #444444">
+        {data.findings.items.map((t) => <span>✦ {t}</span>)}
+      </div>
+    </div>
+  )}
+</section>

@@ -1,0 +1,12 @@
+---
+import Footer from '../components/Footer.astro';
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+<Base kind="home" title={`Страница не найдена — ${site.name}`}>
+  <main style="flex: 0 1 740px; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 24px">
+    <h1 style="margin: 0; font-size: 34px; line-height: 1.15; font-weight: 600; letter-spacing: -0.015em">Такой страницы нет</h1>
+    <a href="/" style="font-weight: 500">← все кейсы</a>
+    <Footer />
+  </main>
+</Base>

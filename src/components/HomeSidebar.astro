@@ -1,0 +1,54 @@
+---
+import { site } from '../data/site';
+import type { Company } from '../lib/content';
+import CompanyIcon from './CompanyIcon.astro';
+import Contacts from './Contacts.astro';
+
+interface Props {
+  companies: Company[];
+}
+const { companies } = Astro.props;
+---
+<aside style="flex: 1 1 260px; max-width: 300px; display: flex; flex-direction: column; gap: 36px">
+  <div style="display: flex; flex-direction: column; gap: 16px">
+    <img src={site.avatar} alt={site.name} width="64" height="64" style="display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: #EDEDEA" />
+    <div style="font-size: 26px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Глеб<br />Бобыльков</div>
+    <p style="margin: 0; line-height: 1.5; color: #444444">{site.description}</p>
+    <div style="display: flex; flex-direction: column; gap: 6px; font-size: 14px; line-height: 1.45; color: #8A8A86">
+      <span>Пишу статьи — <a href={site.habr} style="white-space: nowrap">Хабр ↗</a></span>
+      <span>Менторю дизайнеров — <a href={site.solvery} style="white-space: nowrap">Solvery ↗</a></span>
+      <span>Экспериментирую с ИИ — <span style="white-space: nowrap; color: #111111">Claude Code</span></span>
+    </div>
+  </div>
+
+  <section aria-label="Опыт работы" style="display: flex; flex-direction: column; gap: 2px">
+    <span style="font-size: 13px; color: #8A8A86; padding-bottom: 8px">опыт</span>
+    {companies.map((co, i) => (
+      <a
+        href={`#${co.data.anchor}`}
+        style={`display: flex; align-items: center; gap: 12px; padding: 10px 0; border-top: 1px solid #EDEDEA;${i === companies.length - 1 ? ' border-bottom: 1px solid #EDEDEA;' : ''} text-decoration: none`}
+      >
+        {co.data.badge ? (
+          <span style="position: relative; flex: 0 0 auto; width: 36px; height: 36px">
+            <CompanyIcon src={co.data.icon} size={36} border={co.data.iconBorder} alt={co.data.iconAlt} />
+            <img src={co.data.badge} alt={co.data.badgeAlt} width="18" height="18" style="position: absolute; right: -5px; bottom: -5px; width: 18px; height: 18px; border-radius: 5px; background: #FFFFFF; box-shadow: 0 0 0 2px #FFFFFF; object-fit: cover" />
+          </span>
+        ) : (
+          <CompanyIcon src={co.data.icon} size={36} border={co.data.iconBorder} alt={co.data.iconAlt} />
+        )}
+        <span style="display: flex; flex-direction: column; gap: 2px; min-width: 0; flex: 1">
+          <span style="display: flex; justify-content: space-between; gap: 8px">
+            <span style="font-weight: 500">{co.data.name}</span>
+            <span style="color: #8A8A86; font-size: 13px; white-space: nowrap">{co.data.period}</span>
+          </span>
+          <span style="font-size: 13px; color: #8A8A86; line-height: 1.35">{co.data.role}</span>
+        </span>
+      </a>
+    ))}
+  </section>
+
+  <div style="display: flex; flex-direction: column; gap: 10px">
+    <Contacts />
+    <a href={site.telegram} style="align-self: flex-start; padding: 12px 18px; border-radius: 12px; background: #111111; color: #FFFFFF; text-decoration: none; font-weight: 500">Написать</a>
+  </div>
+</aside>

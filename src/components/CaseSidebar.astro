@@ -1,0 +1,56 @@
+---
+import { site } from '../data/site';
+import { caseUrl, iconOf, type Case, type Company } from '../lib/content';
+import CompanyIcon from './CompanyIcon.astro';
+import Contacts from './Contacts.astro';
+import Footer from './Footer.astro';
+
+interface Props {
+  current: Case;
+  cases: Case[];
+  companies: Company[];
+  toc: { id: string; label: string }[];
+}
+const { current, cases, companies, toc } = Astro.props;
+---
+<aside class="side" style="flex: 1 1 260px; max-width: 300px; display: flex; flex-direction: column; gap: 36px">
+  <a class="side-head" href="/" style="display: flex; align-items: center; gap: 12px; text-decoration: none">
+    <img src={site.avatar} alt={site.name} width="40" height="40" style="display: block; width: 40px; height: 40px; border-radius: 50%; object-fit: cover; background: #EDEDEA; flex: 0 0 auto" />
+    <span style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-weight: 600">{site.name}</span>
+      <span style="font-size: 13px; color: #8A8A86">← все кейсы</span>
+    </span>
+  </a>
+
+  {toc.length > 0 && (
+    <nav class="toc" style="display: flex; flex-direction: column; gap: 2px">
+      <span style="font-size: 13px; color: #8A8A86; padding-bottom: 8px">{current.data.tocTitle}</span>
+      {toc.map((t) => <a href={`#${t.id}`} style="padding: 8px 0; text-decoration: none">{t.label}</a>)}
+    </nav>
+  )}
+
+  <nav style="display: flex; flex-direction: column; gap: 2px">
+    <span style="font-size: 13px; color: #8A8A86; padding-bottom: 8px">кейсы</span>
+    {cases.map((c, i) => {
+      const active = c.id === current.id;
+      const icon = iconOf(c, companies);
+      const last = i === cases.length - 1;
+      return (
+        <a
+          href={caseUrl(c)}
+          aria-current={active ? 'page' : undefined}
+          style={`display: flex; justify-content: space-between; gap: 12px; padding: 10px 0; border-top: 1px solid #EDEDEA;${last ? ' border-bottom: 1px solid #EDEDEA;' : ''} text-decoration: none${active ? '; font-weight: 600' : ''}`}
+        >
+          <span style="display: flex; align-items: center; gap: 10px; min-width: 0">
+            <CompanyIcon src={icon.src} size={16} border={icon.border} />
+            <span>{c.data.title}</span>
+          </span>
+          <span style={`color: #8A8A86${active ? '; font-weight: 400' : ''}`}>{c.data.year}</span>
+        </a>
+      );
+    })}
+  </nav>
+
+  <Contacts />
+  <Footer mobile />
+</aside>

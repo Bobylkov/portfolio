@@ -1,0 +1,31 @@
+---
+import About from '../components/About.astro';
+import CaseCard from '../components/CaseCard.astro';
+import CompanySection from '../components/CompanySection.astro';
+import Footer from '../components/Footer.astro';
+import HomeSidebar from '../components/HomeSidebar.astro';
+import Base from '../layouts/Base.astro';
+import { getAllCases, getCompanies } from '../lib/content';
+import { site } from '../data/site';
+
+const companies = await getCompanies();
+const cases = await getAllCases();
+// Лента: блок компании, за ним её кейсы по order
+const feed = companies.map((company) => ({
+  company,
+  cases: cases.filter((c) => c.data.company === company.id),
+}));
+---
+<Base kind="home" title={`${site.name} — продуктовый дизайнер`}>
+  <HomeSidebar companies={companies} />
+  <main style="flex: 0 1 740px; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 64px">
+    {feed.map(({ company, cases }) => (
+      <>
+        <CompanySection company={company} />
+        {cases.map((entry) => <CaseCard entry={entry} companies={companies} />)}
+      </>
+    ))}
+    <About />
+    <Footer />
+  </main>
+</Base>

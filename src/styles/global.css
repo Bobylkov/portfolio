@@ -1,0 +1,74 @@
+/* База — как в канвасе (вариант C) */
+html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; background: #FFFFFF; }
+a { color: #111111; text-decoration: none; }
+a:hover { color: #6B6B6B; }
+
+/* Сетки, которые используются в карточках и в теле кейсов */
+.nums { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.pair { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; }
+.g2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; align-items: start; }
+.dm { display: grid; grid-template-columns: minmax(0, 1fr) 220px; gap: 12px; align-items: start; }
+.meta { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+.stats { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.calc { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; }
+.locked { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; }
+
+/* Таблицы в кейсах */
+.survey th, .survey td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #EDEDEA; vertical-align: top; }
+.survey th { font-weight: 500; color: #6B6B6B; font-size: 13px; }
+.survey td.n { text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
+.survey th.n { text-align: right; }
+.res th, .res td { padding: 12px 14px; text-align: left; border-bottom: 1px solid #EDEDEA; }
+.res th { font-weight: 500; color: #6B6B6B; font-size: 13px; }
+.res td.n, .res th.n { text-align: right; white-space: nowrap; }
+
+/* Анимация карты врачей: 4 экрана сменяют друг друга за 12 секунд */
+@keyframes mapS1 { 0%, 22% { opacity: 1; transform: none } 27%, 95% { opacity: 0; transform: translateY(-4%) } 100% { opacity: 1; transform: none } }
+@keyframes mapS2 { 0%, 22% { opacity: 0; transform: scale(1) } 27%, 45% { opacity: 1; transform: scale(1) } 52%, 100% { opacity: 0; transform: scale(1.5) } }
+@keyframes mapS3 { 0%, 45% { opacity: 0; transform: scale(.7) } 52%, 72% { opacity: 1; transform: scale(1) } 77%, 100% { opacity: 0; transform: scale(1) } }
+@keyframes mapS4 { 0%, 72% { opacity: 0; transform: translateY(8%) } 77%, 95% { opacity: 1; transform: none } 100% { opacity: 0; transform: none } }
+
+/* Пометки маркером: линия прорисовывается заново каждые 8 секунд */
+@keyframes mkDraw { 0% { stroke-dashoffset: 1 } 20%, 100% { stroke-dashoffset: 0 } }
+.mk-draw { stroke-dasharray: 1; stroke-dashoffset: 0; animation: mkDraw 8s ease-out infinite; }
+
+/* Пластинка у плейлиста */
+@keyframes vinylSpin { to { transform: rotate(360deg) } }
+.vinyl { transform-origin: 50% 50%; animation: vinylSpin 3.2s linear infinite; }
+a:hover .vinyl { animation-duration: 1.2s; }
+
+@media (prefers-reduced-motion: reduce) {
+  .map-anim, .vinyl { animation: none !important; }
+}
+
+/* Мобильная вёрстка (до 640px) */
+@media (max-width: 640px) {
+  .nums, .meta, .stats, .calc { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pair, .trio, .g2, .dm, .locked { grid-template-columns: minmax(0, 1fr); }
+
+  /* главная */
+  .home.shell { padding: 32px 20px !important; gap: 44px !important; }
+  .home.shell > main { gap: 44px !important; }
+  #ozon-rocket > img:first-child { height: 200px !important; }
+  #about { gap: 16px !important; }
+  .home.shell h2[style*="font-size: 24px"] { font-size: 22px !important; }
+  .ds-thumb { flex-basis: 100% !important; }
+  .pl-src { display: none; }
+
+  /* страница кейса: липкая шапка, «в этом кейсе» скрыто, меню кейсов и контакты внизу */
+  .case.shell { flex-direction: column; flex-wrap: nowrap !important; gap: 40px !important; padding: 0 20px 32px !important; }
+  .case .side { display: contents !important; }
+  .case .side > * { order: 3; align-self: stretch; max-width: none !important; }
+  .case .side > .side-head {
+    order: 0; position: sticky; top: 0; z-index: 5; margin: 0 -20px; padding: 12px 20px;
+    background: rgba(255, 255, 255, .94); -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px);
+    box-shadow: 0 1px 0 #EDEDEA;
+  }
+  .case .side > .toc { display: none !important; }
+  .case.shell > main { order: 1; flex: none !important; width: 100%; gap: 48px !important; }
+  .case.shell > main > footer { display: none !important; }
+  .case .mfoot { display: flex !important; order: 4; }
+  .case.shell h1 { font-size: 28px !important; }
+}

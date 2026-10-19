@@ -1,0 +1,24 @@
+---
+// Видео карточки врача и рукописные метрики шрифтом Caveat поверх него.
+// Размеры в cqw — от ширины обложки, поэтому надписи масштабируются вместе с ней.
+import CoverFrame from './CoverFrame.astro';
+
+interface Props {
+  href?: string;
+  src: string;
+  alt: string;
+  metrics: { value: string; note?: string }[];
+}
+const { href, src, alt, metrics } = Astro.props;
+---
+<CoverFrame href={href} style="position: relative; display: block; aspect-ratio: 16 / 10; background: #F4F4F4; border-radius: 24px; overflow: hidden; text-decoration: none; container-type: inline-size">
+  <video src={src} autoplay muted loop playsinline aria-label={alt} style="display: block; width: 100%; height: 100%; object-fit: cover"></video>
+  <span style="position: absolute; left: 57%; right: 4%; top: 49.3%; transform: translateY(-50%) rotate(-3deg); display: flex; flex-direction: column; gap: 3.2cqw; font-family: Caveat, 'Comic Sans MS', cursive; color: #1C4FD8; line-height: 1">
+    {metrics.map((m) => (
+      <span style="display: flex; flex-direction: column; gap: 0.6cqw">
+        <span style="font-size: 6.4cqw; font-weight: 700">{m.value}</span>
+        {m.note && <span style="font-size: 3.4cqw; font-weight: 500; color: #3A3A38">{m.note}</span>}
+      </span>
+    ))}
+  </span>
+</CoverFrame>

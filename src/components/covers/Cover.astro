@@ -1,0 +1,19 @@
+---
+import type { Case } from '../../lib/content';
+import DoctorMetricsCover from './DoctorMetricsCover.astro';
+import ImageCover from './ImageCover.astro';
+import MapSlidesCover from './MapSlidesCover.astro';
+import ProfileCover from './ProfileCover.astro';
+import VideoCover from './VideoCover.astro';
+
+interface Props {
+  cover: Case['data']['card']['cover'];
+  href?: string;
+}
+const { cover, href } = Astro.props;
+---
+{cover.kind === 'image' && <ImageCover href={href} {...cover} />}
+{cover.kind === 'video' && <VideoCover href={href} {...cover} />}
+{cover.kind === 'doctor-metrics' && <DoctorMetricsCover href={href} {...cover} />}
+{cover.kind === 'map-slides' && <MapSlidesCover href={href} {...cover} />}
+{cover.kind === 'profile' && <ProfileCover href={href} {...cover} />}
