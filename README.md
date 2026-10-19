@@ -61,5 +61,4 @@ npm run build    # сборка в dist/
 
 ## Что осталось заполнить
 
-- **Email и CV.** В `src/data/site.ts` стоят заглушки `[ваш email]` и `[ссылка на резюме PDF]`. PDF положите в `public/cv.pdf`, а в `cv` пропишите `'/cv.pdf'`.
-- **Год в карточке «Вы записаны».** В `src/content/cases/success-screen.md` в поле `card.meta` стоит `[год]`. Он перенесён из канваса как есть.
+- **CV.** В `src/data/site.ts` стоит заглушка `[ссылка на резюме PDF]`. PDF положите в `public/cv.pdf`, а в `cv` пропишите `'/cv.pdf'`.

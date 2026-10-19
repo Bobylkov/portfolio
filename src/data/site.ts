@@ -1,12 +1,12 @@
 // Общие данные сайта: контакты, подпись в футере.
-// TODO: впишите email и ссылку на PDF с резюме (положите файл в public/, например public/cv.pdf → '/cv.pdf').
+// TODO: впишите ссылку на PDF с резюме (положите файл в public/, например public/cv.pdf → '/cv.pdf').
 export const site = {
   name: 'Глеб Бобыльков',
   description:
     'Ведущий продуктовый дизайнер в Калининграде. 6 лет делаю продукты, где растут метрики и не страдает пользователь: E-com, MedTech, Fintech',
   avatar: '/media/avatar.jpg',
   telegram: 'https://t.me/bobilion',
-  email: 'mailto:[ваш email]',
+  email: 'mailto:g@bobylkov.ru',
   cv: '[ссылка на резюме PDF]',
   habr: 'https://habr.com/ru/users/bobylkov/articles/',
   solvery: 'https://solvery.io/ru/mentor/17158',
