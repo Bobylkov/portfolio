@@ -4,9 +4,9 @@
 import { site } from '../data/site';
 
 const photos = [
-  { src: '/media/about/zashchita-v-britanke.webp', alt: 'Глеб с микрофоном защищает проект перед аудиторией в Британке', caption: 'Защищаю проект в Британке', pos: '56% 50%', tilt: -2 },
-  { src: '/media/about/design-campus.webp', alt: 'Глеб с преподавателями Design Campus на крыше', caption: 'Учусь у Барбанеля в Design Campus', pos: '50% 35%', tilt: 1.5 },
-  { src: '/media/about/plenka.webp', alt: 'Ночной кадр на плёнку: человек у бара с красной неоновой вывеской', caption: 'Фотографирую на плёнку', pos: '58% 50%', tilt: -1, href: site.instagram },
+  { src: '/media/about/zashchita-v-britanke.webp', alt: 'Глеб с микрофоном защищает проект перед аудиторией в Британке', caption: 'Защищаю проект в Британке', pos: '56% 50%', tilt: -2 },
+  { src: '/media/about/design-campus.webp', alt: 'Глеб с преподавателями Design Campus на крыше', caption: 'Учусь у Барбанеля в Design Campus', pos: '50% 35%', tilt: 1.5 },
+  { src: '/media/about/plenka.webp', alt: 'Ночной кадр на плёнку: человек у бара с красной неоновой вывеской', caption: 'Фотографирую на плёнку', pos: '58% 50%', tilt: -1, href: site.instagram },
 ];
 ---
 <section id="life" style="display: flex; flex-direction: column; gap: 20px">
@@ -16,7 +16,7 @@ const photos = [
       <figure class="life-card" style={`margin: 0; --tilt: ${p.tilt}deg`}>
         <img src={p.src} alt={p.alt} loading="lazy" decoding="async" style={`display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: ${p.pos}; border-radius: 16px; background: #EDEDEA`} />
         <figcaption style="font-family: Caveat, 'Comic Sans MS', cursive; font-weight: 700; font-size: 23px; line-height: 1.1; color: #1C4FD8">
-          {p.href ? <a href={p.href} target="_blank" rel="noopener" style="color: #1C4FD8">{p.caption} ↗</a> : p.caption}
+          {p.href ? <a href={p.href} target="_blank" rel="noopener" style="color: #1C4FD8">{p.caption} ↗</a> : p.caption}
         </figcaption>
       </figure>
     ))}
