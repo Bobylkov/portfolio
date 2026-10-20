@@ -9,7 +9,7 @@ interface Props {
   /** home — главная, case — страница кейса (разная мобильная вёрстка) */
   kind: 'home' | 'case';
 }
-const { title, description = site.description, image = site.avatar, kind } = Astro.props;
+const { title, description = site.description, image = site.ogImage, kind } = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
 ---
@@ -26,6 +26,11 @@ const ogImage = Astro.site ? new URL(image, Astro.site).href : image;
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:image" content={ogImage} />
+    {image === site.ogImage && <meta property="og:image:width" content="1200" />}
+    {image === site.ogImage && <meta property="og:image:height" content="630" />}
+    <meta property="og:site_name" content={site.name} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:image" content={ogImage} />
     {canonical && <meta property="og:url" content={canonical} />}
     <link rel="icon" href="/favicon.png" type="image/png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />

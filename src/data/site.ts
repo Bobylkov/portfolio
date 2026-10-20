@@ -5,6 +5,8 @@ export const site = {
   description:
     'Ведущий продуктовый дизайнер в Калининграде. 6 лет делаю продукты, где растут метрики и не страдает пользователь: E-com, MedTech, Fintech',
   avatar: '/media/avatar.jpg',
+  // Картинка-превью для соцсетей и мессенджеров, 1200×630
+  ogImage: '/og.jpg',
   telegram: 'https://t.me/bobilion',
   email: 'mailto:g@bobylkov.ru',
   cv: '/cv.pdf',
