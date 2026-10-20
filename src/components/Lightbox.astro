@@ -1,0 +1,84 @@
+---
+// Увеличение картинок в кейсе: клик по картинке открывает её на весь экран.
+// Подключается на странице кейса. Не трогает обложки-ссылки, иконки
+// и картинки внутри прокручиваемых окон (витрина каталога).
+---
+<dialog id="lightbox" class="lb" aria-label="Увеличенная картинка">
+  <button type="button" class="lb-close" aria-label="Закрыть">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+  </button>
+  <div class="lb-stage">
+    <img class="lb-img" alt="" />
+  </div>
+  <p class="lb-cap"></p>
+</dialog>
+
+<style is:global>
+  .zoomable { cursor: zoom-in; }
+  .zoomable:focus-visible { outline: 2px solid #1C4FD8; outline-offset: 3px; }
+  .lb { padding: 0; border: 0; margin: 0; width: 100vw; height: 100vh; max-width: none; max-height: none; background: transparent; overflow: hidden; }
+  .lb::backdrop { background: rgba(17, 17, 17, 0.88); }
+  .lb[open] { display: flex; flex-direction: column; animation: lbIn 0.2s ease-out; }
+  .lb-stage { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; padding: 56px 24px 12px; box-sizing: border-box; overflow: auto; cursor: zoom-out; }
+  .lb-img { display: block; max-width: 100%; max-height: 100%; width: auto; height: auto; border-radius: 12px; background: #FFFFFF; cursor: zoom-in; }
+  .lb.full .lb-stage { align-items: flex-start; justify-content: flex-start; }
+  .lb.full .lb-img { max-width: none; max-height: none; cursor: zoom-out; }
+  .lb-cap { margin: 0; padding: 0 24px 20px; text-align: center; color: rgba(255, 255, 255, 0.72); font: 13px/1.4 Onest, system-ui, sans-serif; }
+  .lb-cap:empty { display: none; }
+  .lb-close { position: fixed; top: 14px; right: 14px; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(255, 255, 255, 0.14); color: #FFFFFF; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background 0.25s; z-index: 1; }
+  .lb-close:hover { background: rgba(255, 255, 255, 0.26); }
+  @keyframes lbIn { from { opacity: 0; } to { opacity: 1; } }
+  @media (prefers-reduced-motion: reduce) { .lb[open] { animation: none; } }
+</style>
+
+<script>
+  const dialog = document.getElementById('lightbox') as HTMLDialogElement | null;
+  const big = dialog?.querySelector<HTMLImageElement>('.lb-img');
+  const cap = dialog?.querySelector<HTMLParagraphElement>('.lb-cap');
+  const stage = dialog?.querySelector<HTMLDivElement>('.lb-stage');
+  let opener: HTMLElement | null = null;
+
+  const open = (img: HTMLImageElement) => {
+    if (!dialog || !big || !cap) return;
+    opener = img;
+    big.src = img.currentSrc || img.src;
+    big.alt = img.alt;
+    cap.textContent = img.alt;
+    dialog.classList.remove('full');
+    dialog.showModal();
+  };
+  const close = () => {
+    dialog?.close();
+  };
+
+  // Какие картинки увеличивать: в теле кейса, не внутри ссылок и прокручиваемых окон, не мелкие
+  const candidates = document.querySelectorAll<HTMLImageElement>('main img');
+  candidates.forEach((img) => {
+    if (img.closest('a, [tabindex], .lb, .no-zoom')) return;
+    const check = () => {
+      if (img.getBoundingClientRect().width < 160) return;
+      img.classList.add('zoomable');
+      img.tabIndex = 0;
+      img.setAttribute('role', 'button');
+      img.setAttribute('aria-label', `Увеличить: ${img.alt || 'картинка'}`);
+      img.addEventListener('click', () => open(img));
+      img.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+      });
+    };
+    if (img.complete) check(); else img.addEventListener('load', check, { once: true });
+  });
+
+  // Клик по картинке в окне — показать в натуральную величину (для широких схем), ещё раз — вписать в экран
+  big?.addEventListener('click', (e) => {
+    e.stopPropagation();
+    if (!big || !dialog) return;
+    const fits = big.naturalWidth <= big.clientWidth + 1 && big.naturalHeight <= big.clientHeight + 1;
+    if (!dialog.classList.contains('full') && fits) return;
+    dialog.classList.toggle('full');
+    if (stage) { stage.scrollTop = 0; stage.scrollLeft = 0; }
+  });
+  stage?.addEventListener('click', close);
+  dialog?.querySelector('.lb-close')?.addEventListener('click', close);
+  dialog?.addEventListener('close', () => { opener?.focus({ preventScroll: true }); });
+</script>
