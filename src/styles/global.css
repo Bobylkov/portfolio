@@ -116,3 +116,14 @@ a:hover .vinyl { animation-duration: 1.2s; }
 @media (prefers-reduced-motion: reduce) {
   .cursor-badge { transition: none !important; }
 }
+
+/* Фото «А ещё» на главной: три карточки с лёгким наклоном, на телефоне — горизонтальная лента */
+.life-row { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.life-card { display: flex; flex-direction: column; gap: 10px; transform: rotate(var(--tilt, 0deg)); transition: transform .35s cubic-bezier(.3, .7, .2, 1); }
+@media (hover: hover) and (pointer: fine) { .life-card:hover { transform: rotate(0deg) translateY(-4px); } }
+@media (max-width: 640px) {
+  .life-row { display: flex; gap: 14px; overflow-x: auto; scroll-snap-type: x mandatory; margin: 0 -20px; padding: 6px 20px 10px; scrollbar-width: none; }
+  .life-row::-webkit-scrollbar { display: none; }
+  .life-card { flex: 0 0 72%; scroll-snap-align: center; }
+}
+@media (prefers-reduced-motion: reduce) { .life-card { transition: none; } }

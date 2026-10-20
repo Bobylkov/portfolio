@@ -12,6 +12,8 @@ export const site = {
   cv: '/cv.pdf',
   habr: 'https://habr.com/ru/users/bobylkov/articles/',
   solvery: 'https://solvery.io/ru/mentor/17158',
+  // Instagram с плёночными фото: пока пусто — подпись под фото выводится без ссылки
+  instagram: '',
   playlist: 'https://music.yandex.ru/playlists/c0ec3e5f-d7a3-63b1-9dc0-265a8401cff4',
   footer: 'дизайнил и разрабатывал глеб бобыльков',
   year: '2026',
