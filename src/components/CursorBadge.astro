@@ -1,0 +1,28 @@
+---
+// Бейдж вместо курсора над обложками кейсов (элементы с data-cursor).
+// Только для мыши: на тач-экранах не появляется.
+---
+<span class="cursor-badge" aria-hidden="true"></span>
+
+<script>
+  const badge = document.querySelector<HTMLSpanElement>('.cursor-badge');
+  const fine = window.matchMedia('(hover: hover) and (pointer: fine)');
+  if (badge && fine.matches) {
+    let x = 0, y = 0, raf = 0;
+    const move = () => { badge.style.left = `${x}px`; badge.style.top = `${y}px`; raf = 0; };
+    document.querySelectorAll<HTMLElement>('[data-cursor]').forEach((el) => {
+      el.addEventListener('mouseenter', (e) => {
+        badge.textContent = el.dataset.cursor || '';
+        x = e.clientX; y = e.clientY; move();
+        badge.classList.add('on');
+      });
+      el.addEventListener('mousemove', (e) => {
+        x = e.clientX; y = e.clientY;
+        badge.classList.add('on');
+        if (!raf) raf = requestAnimationFrame(move);
+      });
+      el.addEventListener('mouseleave', () => badge.classList.remove('on'));
+    });
+    window.addEventListener('scroll', () => badge.classList.remove('on'), { passive: true });
+  }
+</script>
