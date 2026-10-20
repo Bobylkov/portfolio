@@ -6,9 +6,10 @@ interface Props {
   src: string;
   poster?: string;
   alt: string;
+  trim?: boolean;
 }
-const { href, src, poster, alt } = Astro.props;
+const { href, src, poster, alt, trim = false } = Astro.props;
 ---
 <CoverFrame href={href} style="display: block; aspect-ratio: 16 / 10; background: #F4F4F2; border-radius: 24px; overflow: hidden; text-decoration: none">
-  <video src={src} poster={poster} autoplay muted loop playsinline preload="metadata" aria-label={alt} style="display: block; width: 100%; height: 100%; object-fit: cover"></video>
+  <video src={src} poster={poster} autoplay muted loop playsinline preload="metadata" aria-label={alt} style={`display: block; width: 100%; height: 100%; object-fit: cover${trim ? '; transform: scale(1.01)' : ''}`}></video>
 </CoverFrame>

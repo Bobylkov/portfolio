@@ -9,8 +9,8 @@ const image = z.object({ src: z.string(), alt: z.string().default('') });
 const cover = z.discriminatedUnion('kind', [
   // обычная картинка во всю ширину, высота по пропорциям файла
   z.object({ kind: z.literal('image'), src: z.string(), alt: z.string() }),
-  // видео 16:10 без звука, по кругу
-  z.object({ kind: z.literal('video'), src: z.string(), poster: z.string().optional(), alt: z.string() }),
+  // видео 16:10 без звука, по кругу; trim: true чуть увеличивает кадр, чтобы спрятать тёмную рамку по краю файла
+  z.object({ kind: z.literal('video'), src: z.string(), poster: z.string().optional(), alt: z.string(), trim: z.boolean().default(false) }),
   // видео + рукописные метрики шрифтом Caveat справа
   z.object({
     kind: z.literal('doctor-metrics'),

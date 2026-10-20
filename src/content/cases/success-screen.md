@@ -30,6 +30,7 @@ card:
     src: "/media/success/cover.mp4"
     poster: "/media/success/cover-poster.webp"
     alt: "Экран «Вы записаны» на телефоне: дата, клиника, быстрые действия"
+    trim: true
   meta: "СберЗдоровье · ведущий дизайнер · 2025 · mobile + web"
   title: "Сделал экран «Вы записаны» точкой роста без рекламной перегрузки"
   lead: "Разделил информацию и рекламу по итогам интервью и юзабилити-тестов, переписал CTA приложения с «скидки» на «пользу» и собрал модульный компонент для трёх продуктов."
@@ -53,7 +54,7 @@ card:
 ---
 
 <div style="display: flex; flex-direction: column; gap: 12px">
-  <video src="/media/success/cover.mp4" poster="/media/success/cover-poster.webp" autoplay muted loop playsinline aria-label="Экран «Вы записаны» на телефоне: дата, клиника, быстрые действия" style="display: block; width: 100%; aspect-ratio: 16 / 10; object-fit: cover; border-radius: 24px; background: #F4F4F2"></video>
+  <div style="aspect-ratio: 16 / 10; border-radius: 24px; overflow: hidden; background: #F4F4F2"><video src="/media/success/cover.mp4" poster="/media/success/cover-poster.webp" autoplay muted loop playsinline aria-label="Экран «Вы записаны» на телефоне: дата, клиника, быстрые действия" style="display: block; width: 100%; height: 100%; object-fit: cover; transform: scale(1.01)"></video></div>
   <div class="nums">
     <div style="background: #F4F4F2; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 22px; font-weight: 600">+34%</span><span style="font-size: 12px; color: #6B6B6B; line-height: 1.35">кросс-переходов</span></div>
     <div style="background: #F4F4F2; border-radius: 14px; padding: 14px; display: flex; flex-direction: column; gap: 4px"><span style="font-size: 22px; font-weight: 600">+28%</span><span style="font-size: 12px; color: #6B6B6B; line-height: 1.35">установок приложения</span></div>
