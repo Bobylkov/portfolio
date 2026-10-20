@@ -10,7 +10,7 @@ cover:
   kind: image
   src: "/media/home/ozon-rocket.webp"
   alt: "Курьер Ozon Rocket в фирменной синей куртке со спины"
-  style: "display: block; width: 100%; height: 240px; border-radius: 24px; background: #0A6CFF; object-fit: cover; object-position: 0% 3.2154%; object-view-box: inset(1.1447% 3.6104% 34.4566% 0%)"
+  style: "display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; border-radius: 24px; background: #0A6CFF; object-fit: cover; object-position: 50% 0%"
 meta: "Ozon Rocket · ведущий дизайнер · 2023 · web"
 title: "Ozon Rocket — новый сайт сервиса доставки для интернет-магазинов"
 paragraphs:
