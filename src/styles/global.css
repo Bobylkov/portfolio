@@ -87,20 +87,8 @@ a:hover .vinyl { animation-duration: 1.2s; }
   .case.shell h1 { font-size: 28px !important; }
 }
 
-/* Ховеры на десктопе: маркер дорисовывает подчёркивание заголовка кейса,
-   над обложкой курсор превращается в синий бейдж «Смотреть кейс» */
-.mk-title {
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 12' preserveAspectRatio='none'%3E%3Cpath d='M2 8 C 40 3, 90 10, 140 6 S 190 4, 198 7' fill='none' stroke='%231C4FD8' stroke-width='3.2' stroke-linecap='round'/%3E%3C/svg%3E");
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 0% 10px;
-  padding-bottom: 5px;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-}
+/* Ховер на десктопе: над обложкой курсор превращается в бейдж «Смотреть кейс» */
 @media (hover: hover) and (pointer: fine) {
-  .mk-title { transition: color .25s ease, background-size .5s cubic-bezier(.3, .7, .2, 1); }
-  article:hover .mk-title, .mk-title:hover, .mk-title:focus-visible { background-size: 100% 10px; color: #111111; }
   [data-cursor] { cursor: none; }
 }
 .cursor-badge {
@@ -127,5 +115,5 @@ a:hover .vinyl { animation-duration: 1.2s; }
 }
 .cursor-badge.on { transform: translate(-50%, -50%) scale(1); opacity: 1; }
 @media (prefers-reduced-motion: reduce) {
-  .mk-title, .cursor-badge { transition: none !important; }
+  .cursor-badge { transition: none !important; }
 }

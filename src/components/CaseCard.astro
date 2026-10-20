@@ -23,7 +23,7 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
     </a>
     <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 8px">
       <span style="font-size: 13px; color: #8A8A86">{card.meta}</span>
-      <a class="mk-title" href={href} style="font-size: 18px; line-height: 1.3; font-weight: 600; text-decoration: none" set:html={card.title} />
+      <a href={href} style="font-size: 18px; line-height: 1.3; font-weight: 600; text-decoration: none" set:html={card.title} />
       <p style="margin: 0; line-height: 1.5; color: #444444; font-size: 14px" set:html={card.lead} />
     </div>
   </article>
@@ -32,7 +32,7 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
     <Cover cover={card.cover} href={href} />
     <MetaLine icon={icon.src} border={icon.border} text={card.meta} />
     <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em">
-      {href ? <a class="mk-title" href={href} set:html={card.title} /> : <Fragment set:html={card.title} />}
+      {href ? <a href={href} set:html={card.title} /> : <Fragment set:html={card.title} />}
     </h2>
     <p style="margin: 0; line-height: 1.55; color: #444444; max-width: 620px" set:html={card.lead} />
     {card.nums && <Nums items={card.nums} />}
