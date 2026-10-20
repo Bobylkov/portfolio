@@ -33,7 +33,7 @@ card:
   lead: "Конструктор из блоков и карточек вместо 250 устаревших компонентов: крупная типографика, варианты под контент и адаптив в трёх брейкпоинтах."
 ---
 
-<img src="/media/ds/cover.jpg" alt="Лендинг «Что такое бренд Ozon» на ноутбуке и телефоне, собранный на новой дизайн-системе" style="display: block; width: 100%; height: auto; border-radius: 24px; background: #2E3038">
+<img data-cover src="/media/ds/cover.jpg" alt="Лендинг «Что такое бренд Ozon» на ноутбуке и телефоне, собранный на новой дизайн-системе" style="display: block; width: 100%; height: auto; border-radius: 24px; background: #2E3038">
 
 <section id="start" style="display: flex; flex-direction: column; gap: 12px">
   <h2 style="margin: 0; font-size: 17px; font-weight: 600">Точка старта</h2>

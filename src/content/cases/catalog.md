@@ -30,7 +30,7 @@ card:
   cta: "Смотреть макеты →"
 ---
 
-<img src="/media/catalog/cover.webp" alt="Каталог Долями: карточка товара в мобильной версии и страница магазина 12 storeez на десктопе" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img data-cover src="/media/catalog/cover.webp" alt="Каталог Долями: карточка товара в мобильной версии и страница магазина 12 storeez на десктопе" style="display: block; width: 100%; height: auto; border-radius: 24px">
 
 <section id="universal" style="display: flex; flex-direction: column; gap: 12px">
   <h2 style="margin: 0; font-size: 17px; font-weight: 600">Универсальный каталог</h2>

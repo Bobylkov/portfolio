@@ -1,7 +1,7 @@
 ---
 // Увеличение картинок в кейсе: клик по картинке открывает её на весь экран.
-// Подключается на странице кейса. Не трогает обложки-ссылки, иконки
-// и картинки внутри прокручиваемых окон (витрина каталога).
+// Подключается на всех страницах. Не трогает обложки (data-cover),
+// картинки-ссылки, аватары и иконки.
 ---
 <dialog id="lightbox" class="lb" aria-label="Увеличенная картинка">
   <button type="button" class="lb-close" aria-label="Закрыть">
@@ -53,20 +53,21 @@
 
   // Какие картинки увеличивать: в теле кейса, не внутри ссылок и прокручиваемых окон, не мелкие
   const candidates = document.querySelectorAll<HTMLImageElement>('main img');
+  // Мелкие картинки (иконки компаний, значки) не увеличиваем: их размер задан в px
+  const isSmall = (img: HTMLImageElement) => {
+    const w = parseFloat(img.getAttribute('width') || '') || (img.style.width.endsWith('px') ? parseFloat(img.style.width) : NaN);
+    return w < 72;
+  };
   candidates.forEach((img) => {
-    if (img.closest('a, [tabindex], .lb, .no-zoom')) return;
-    const check = () => {
-      if (img.getBoundingClientRect().width < 160) return;
-      img.classList.add('zoomable');
-      img.tabIndex = 0;
-      img.setAttribute('role', 'button');
-      img.setAttribute('aria-label', `Увеличить: ${img.alt || 'картинка'}`);
-      img.addEventListener('click', () => open(img));
-      img.addEventListener('keydown', (e) => {
-        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
-      });
-    };
-    if (img.complete) check(); else img.addEventListener('load', check, { once: true });
+    if (img.closest('a, [data-cover], .lb, .no-zoom') || isSmall(img)) return;
+    img.classList.add('zoomable');
+    img.tabIndex = 0;
+    img.setAttribute('role', 'button');
+    img.setAttribute('aria-label', `Увеличить: ${img.alt || 'картинка'}`);
+    img.addEventListener('click', () => open(img));
+    img.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); open(img); }
+    });
   });
 
   // Клик по картинке в окне — показать в натуральную величину (для широких схем), ещё раз — вписать в экран

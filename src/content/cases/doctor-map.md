@@ -44,10 +44,10 @@ card:
 
 <div style="position: relative; aspect-ratio: 16 / 10; background: #F4F4F2; border-radius: 24px; overflow: hidden; container-type: inline-size">
   <div style="position: absolute; left: 0px; top: 1.76cqw; width: 35.4cqw; border: 1.4cqw solid #1C1C1E; border-radius: 6cqw; overflow: hidden; background: #FFFFFF; box-shadow: 0 2cqw 6cqw rgba(17, 17, 17, 0.12); height: 76.35cqw; right: 0px; margin-left: auto; margin-right: auto">
-    <img class="map-anim" src="/media/map/slide-1-spisok.webp" alt="Список врачей с картой кластеров сверху" style="display: block; width: 100%; height: auto; animation: mapS1 12s ease-in-out infinite">
-    <img class="map-anim" src="/media/map/slide-2-karta.webp" alt="Карта Москвы с кластерами клиник" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform-origin: 55% 45%; animation: mapS2 12s ease-in-out infinite">
-    <img class="map-anim" src="/media/map/slide-3-kliniki.webp" alt="Клиники на карте с рейтингом, числом врачей и ценой" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform-origin: 50% 45%; animation: mapS3 12s ease-in-out infinite">
-    <img class="map-anim" src="/media/map/slide-4-shtorka.webp" alt="Шторка клиники с врачами и слотами записи" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: mapS4 12s ease-in-out infinite">
+    <img data-cover class="map-anim" src="/media/map/slide-1-spisok.webp" alt="Список врачей с картой кластеров сверху" style="display: block; width: 100%; height: auto; animation: mapS1 12s ease-in-out infinite">
+    <img data-cover class="map-anim" src="/media/map/slide-2-karta.webp" alt="Карта Москвы с кластерами клиник" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform-origin: 55% 45%; animation: mapS2 12s ease-in-out infinite">
+    <img data-cover class="map-anim" src="/media/map/slide-3-kliniki.webp" alt="Клиники на карте с рейтингом, числом врачей и ценой" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; transform-origin: 50% 45%; animation: mapS3 12s ease-in-out infinite">
+    <img data-cover class="map-anim" src="/media/map/slide-4-shtorka.webp" alt="Шторка клиники с врачами и слотами записи" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0; animation: mapS4 12s ease-in-out infinite">
     <span aria-hidden="true" style="position: absolute; top: 1.2cqw; left: 50%; transform: translateX(-50%); width: 30%; height: 3cqw; border-radius: 3cqw; background: #1C1C1E"></span>
   </div>
 

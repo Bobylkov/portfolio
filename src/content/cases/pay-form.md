@@ -33,7 +33,7 @@ card:
   lead: "Разобрали все сценарии отказа в оплате Долями и почти в каждом дали оплатить: недостающий лимит добавляется к первому платежу. Механику объяснили на экранах и проверили на респондентах."
 ---
 
-<img src="/media/payform/cover.webp" alt="Экран «Сумма покупки больше вашего лимита на 3 000 ₽» и шторка с объяснением лимита" style="display: block; width: 100%; height: auto; border-radius: 24px">
+<img data-cover src="/media/payform/cover.webp" alt="Экран «Сумма покупки больше вашего лимита на 3 000 ₽» и шторка с объяснением лимита" style="display: block; width: 100%; height: auto; border-radius: 24px">
 
 <section id="tasks" style="display: flex; flex-direction: column; gap: 12px; max-width: 620px">
   <h2 style="margin: 0; font-size: 17px; font-weight: 600">Задачи</h2>

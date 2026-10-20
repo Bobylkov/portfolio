@@ -11,5 +11,5 @@ const { href, src, alt } = Astro.props;
 const size = await imageSize(src);
 ---
 <CoverFrame href={href} style="display: block; border-radius: 24px; overflow: hidden; text-decoration: none">
-  <img src={src} alt={alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" style="display: block; width: 100%; height: auto" />
+  <img data-cover src={src} alt={alt} width={size?.width} height={size?.height} loading="lazy" decoding="async" style="display: block; width: 100%; height: auto" />
 </CoverFrame>
