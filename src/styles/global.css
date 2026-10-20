@@ -1,5 +1,8 @@
 /* База — как в канвасе (вариант C) */
 html { -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+@media (prefers-reduced-motion: no-preference) { html { scroll-behavior: smooth; } }
+/* при переходе по якорю карточка встаёт с тем же отступом, что и верх страницы */
+main > [id] { scroll-margin-top: 40px; }
 body { margin: 0; background: #FFFFFF; }
 a { color: #111111; text-decoration: none; }
 a:hover { color: #6B6B6B; }

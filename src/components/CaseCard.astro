@@ -31,7 +31,9 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
   <article id={`case-${entry.id}`} style="display: flex; flex-direction: column; gap: 18px">
     <Cover cover={card.cover} href={href} />
     <MetaLine icon={icon.src} border={icon.border} text={card.meta} />
-    <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em" set:html={card.title} />
+    <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em">
+      {href ? <a href={href} set:html={card.title} /> : <Fragment set:html={card.title} />}
+    </h2>
     <p style="margin: 0; line-height: 1.55; color: #444444; max-width: 620px" set:html={card.lead} />
     {card.nums && <Nums items={card.nums} />}
     {card.images && (

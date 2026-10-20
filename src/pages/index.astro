@@ -25,7 +25,7 @@ const feed = companies.map((company) => ({
   <main style="flex: 0 1 740px; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 64px">
     {feed.map(({ company, cases }) => (
       <>
-        <CompanySection company={company} />
+        <CompanySection company={company} firstCase={cases[0] && `case-${cases[0].id}`} />
         {cases.map((entry) => <CaseCard entry={entry} companies={companies} />)}
       </>
     ))}

@@ -6,8 +6,11 @@ import Tags from './Tags.astro';
 
 interface Props {
   company: Company;
+  /** якорь первого кейса компании: заголовок прокручивает к нему */
+  firstCase?: string;
 }
-const { data } = Astro.props.company;
+const { company, firstCase } = Astro.props;
+const { data } = company;
 const { cover } = data;
 ---
 <section id={data.anchor} style="display: flex; flex-direction: column; gap: 18px">
@@ -17,7 +20,9 @@ const { cover } = data;
     <img src={cover.src} alt={cover.alt} style={cover.style} />
   )}
   <MetaLine icon={data.icon} border={data.iconBorder} text={data.meta} />
-  <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em" set:html={data.title} />
+  <h2 style="margin: 0; font-size: 24px; line-height: 1.25; font-weight: 600; letter-spacing: -0.01em">
+    {firstCase ? <a href={`#${firstCase}`} set:html={data.title} /> : <Fragment set:html={data.title} />}
+  </h2>
   {data.paragraphs.map((p) => <p style="margin: 0; line-height: 1.55; color: #444444; max-width: 620px" set:html={p} />)}
   {data.tags && <Tags items={data.tags} />}
   {data.findings && (
