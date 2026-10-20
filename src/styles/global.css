@@ -56,6 +56,7 @@ a:hover .vinyl { animation-duration: 1.2s; }
   .home.shell h2[style*="font-size: 24px"] { font-size: 22px !important; }
   .ds-thumb { flex-basis: 100% !important; }
   .pl-src { display: none; }
+  .contact-cta { align-self: stretch !important; }
 
   /* страница кейса: липкая шапка, «в этом кейсе» скрыто, меню кейсов и контакты внизу */
   .case.shell { flex-direction: column; flex-wrap: nowrap !important; gap: 40px !important; padding: 0 20px 32px !important; }
