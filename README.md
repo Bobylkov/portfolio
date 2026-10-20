@@ -2,6 +2,8 @@
 
 Статический сайт на [Astro](https://astro.build), перенесён из Design-канваса (вариант C): слева сайдбар, справа лента кейсов.
 
+Сайт: https://bobylkov.com (хостинг Timeweb Cloud App Platform, технический адрес https://bobylkov-portfolio-5b68.twc1.net).
+
 ```bash
 npm install      # один раз
 npm run dev      # локально: http://localhost:4321

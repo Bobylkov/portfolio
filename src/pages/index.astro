@@ -17,6 +17,10 @@ const feed = companies.map((company) => ({
 }));
 ---
 <Base kind="home" title={`${site.name} — продуктовый дизайнер`}>
+  {/* Timeweb отдаёт главную на любой несуществующий адрес — перекидываем на страницу «не найдено» */}
+  <script is:inline>
+    if (!['/', '/index.html'].includes(location.pathname)) location.replace('/404.html');
+  </script>
   <HomeSidebar companies={companies} />
   <main style="flex: 0 1 740px; min-width: 0; max-width: 740px; display: flex; flex-direction: column; gap: 64px">
     {feed.map(({ company, cases }) => (
