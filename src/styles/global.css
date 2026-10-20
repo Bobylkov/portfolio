@@ -46,6 +46,15 @@ a:hover .vinyl { animation-duration: 1.2s; }
   .map-anim, .vinyl { animation: none !important; }
 }
 
+/* Сайдбар прилипает, пока колонки стоят рядом (шире 1184px). Если он выше окна, низ докручивается внутри */
+@media (min-width: 1184px) {
+  .sidebar {
+    position: sticky; top: 40px; max-height: calc(100vh - 80px);
+    overflow-y: auto; overscroll-behavior: contain; scrollbar-width: none;
+  }
+  .sidebar::-webkit-scrollbar { display: none; }
+}
+
 /* Мобильная вёрстка (до 640px) */
 @media (max-width: 640px) {
   .nums, .meta, .stats, .calc { grid-template-columns: repeat(2, minmax(0, 1fr)); }

@@ -9,7 +9,7 @@ interface Props {
 }
 const { companies } = Astro.props;
 ---
-<aside style="flex: 1 1 260px; max-width: 300px; display: flex; flex-direction: column; gap: 36px">
+<aside class="sidebar" style="flex: 1 1 260px; max-width: 300px; display: flex; flex-direction: column; gap: 36px">
   <div style="display: flex; flex-direction: column; gap: 16px">
     <img src={site.avatar} alt={site.name} width="64" height="64" style="display: block; width: 64px; height: 64px; border-radius: 50%; object-fit: cover; background: #EDEDEA" />
     <div style="font-size: 26px; line-height: 1.1; font-weight: 600; letter-spacing: -0.01em">Глеб<br />Бобыльков</div>
