@@ -15,6 +15,8 @@ toc:
     label: "Исследование"
   - id: solution
     label: "Решение"
+  - id: edge-cases
+    label: "Проработка кейсов"
   - id: styling
     label: "Стилизация карты"
   - id: contribution
@@ -120,6 +122,22 @@ card:
     <div style="background: #F4F6FA; border-radius: 20px; overflow: hidden; display: flex; justify-content: center; margin-top: 8px"><img src="/media/map/pustaya-karta-net-zapisi.webp" alt="Пустая карта, нет записи на дату, нет интернета, ничего не нашли" style="display: block; width: 100%; height: auto"></div>
   </div>
 
+</section>
+
+<section id="edge-cases" style="display: flex; flex-direction: column; gap: 12px">
+  <h2 style="margin: 0; font-size: 17px; font-weight: 600">Проработка кейсов</h2>
+  <p style="margin: 0; line-height: 1.6; color: #444444; font-size: 16px; max-width: 620px">Основной сценарий карты умещается в несколько экранов. Большая часть работы ушла на вопрос «а если…»: если клиник нет, если часть данных не загрузилась, если пины налезают друг на друга. В итоге спецификация для разработки состоит больше из краевых случаев, чем из «счастливого» пути.</p>
+  <a href="/media/map/specifikatsiya-karty.webp" target="_blank" rel="noopener" style="display: block; margin-top: 8px; border-radius: 20px; overflow: hidden; background: #1E1E1E"><img src="/media/map/specifikatsiya-karty.webp" alt="Спецификация в Figma: выдача «список + карта сверху», карта в режиме приближения и карточки клиник, полный список, общие правила состояний, поведение шторки и логика кластеризации" style="display: block; width: 100%; height: auto"></a>
+  <p style="margin: 0; font-size: 13px; color: #6B6B6B; line-height: 1.4">Спецификация в Figma. Слева направо: выдача «список + карта сверху», карта в режиме приближения с карточками клиник, полный список и документы с общими правилами состояний, поведением шторки и логикой кластеризации. Нажмите, чтобы открыть крупно.</p>
+  <div class="g2" style="align-items: stretch; margin-top: 12px">
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Данные не загрузились</span><span style="line-height: 1.55; color: #444444; font-size: 15px">Карта и выдача грузятся независимо, поэтому у каждой части своё состояние: скелетоны, карта без выдачи и наоборот. Ошибки тоже разные: упала карта, упала выдача, упало всё сразу, нет интернета.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Результатов нет</span><span style="line-height: 1.55; color: #444444; font-size: 15px">На выбранной станции нет клиник — карта снимает фильтр станции, отъезжает и объясняет это тостом. Для выдачи два разных текста: запись на сегодня закончилась или нет слотов на другую дату.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Геолокация</span><span style="line-height: 1.55; color: #444444; font-size: 15px">Без доступа к геопозиции кнопка «Рядом» предупреждает, что клиники могут отображаться неточно. Если рядом мало клиник, масштаб расширяется ступенями: 15 → 14 → 13, а при меньше чем четырёх клиниках в кадре виден весь город.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Плотная застройка</span><span style="line-height: 1.55; color: #444444; font-size: 15px">У клиник в одном здании одинаковые координаты, и пины накладываются — их разводим на 13 метров. Тап по кластеру переводит на следующую ступень: город, округ, район, улица.</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Пин и список совпадают</span><span style="line-height: 1.55; color: #444444; font-size: 15px">Карта и выдача фильтруются по одним параметрам. Цена на пине — самая низкая среди подошедших врачей, без вариантов «по запросу».</span></div>
+    <div style="display: flex; flex-direction: column; gap: 6px; padding: 18px; border-radius: 18px; background: #F4F4F2"><span style="font-weight: 600; font-size: 15px">Жесты и режимы</span><span style="line-height: 1.55; color: #444444; font-size: 15px">Скролл, тап по карте, попытка зума и переключение карта/список прописаны как отдельные переходы. Сортировка на карте не работает, но не убрана, чтобы панель фильтров не прыгала, — об этом сообщает снекбар.</span></div>
+  </div>
+  <p style="margin: 8px 0 0; line-height: 1.6; color: #444444; font-size: 16px; max-width: 620px">Всё это ушло в разработку одной спецификацией: экраны, общие правила состояний, поведение шторки и логика кластеризации. Разработчикам не нужно угадывать, что показать, когда что-то пошло не по плану.</p>
 </section>
 
 <section id="styling" style="display: flex; flex-direction: column; gap: 12px">
