@@ -1,20 +1,14 @@
 ---
-// Кнопки под карточкой кейса: чёрная пилюля «Читать кейс →», доп. ссылки
-// и «Коротко за 20 секунд» — ИИ-саммери, которое печатается под карточкой.
+// Кнопки под карточкой кейса: чёрная пилюля «Читать кейс →» и доп. ссылки
 interface Props {
-  id: string;
   href?: string;
   cta: string;
   links?: { label: string; href: string }[];
-  summary?: { label: string; text: string }[];
   draft?: boolean;
 }
-const { id, href, cta, links, summary, draft } = Astro.props;
+const { href, cta, links, draft } = Astro.props;
 const label = cta.replace(/\s*→\s*$/, '');
 const hasArrow = /→\s*$/.test(cta);
-const panelId = `sum-${id}`;
-// неразрывные пробелы после коротких слов, чтобы предлоги не висели
-const nb = (t: string) => t.replace(/(^|[\s(«])(в|к|с|у|о|и|а|я|на|по|из|за|от|до|не|для|без|под|при|про|над|что)\s/gi, '$1$2 ');
 ---
 <div class="case-actions">
   {draft || !href ? (
@@ -22,56 +16,5 @@ const nb = (t: string) => t.replace(/(^|[\s(«])(в|к|с|у|о|и|а|я|на|п
   ) : (
     <a class="cta-pill" href={href}>{label}{hasArrow && <span class="cta-arrow" aria-hidden="true">→</span>}</a>
   )}
-  {summary && (
-    <button type="button" class="ai-btn" aria-expanded="false" aria-controls={panelId}>
-      <svg aria-hidden="true" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l1.8 4.7L18.5 9.5l-4.7 1.8L12 16l-1.8-4.7L5.5 9.5l4.7-1.8z"></path><path d="M19 15l.8 2.2L22 18l-2.2.8L19 21l-.8-2.2L16 18l2.2-.8z"></path></svg>
-      <span class="ai-label">Коротко за 20 секунд</span>
-    </button>
-  )}
   {links?.map((l) => <a class="cta-link" href={l.href}>{l.label}</a>)}
 </div>
-{summary && (
-  <div class="ai-panel" id={panelId} hidden>
-    {summary.map((s) => (
-      <p><b>{s.label}:</b> <span data-full={nb(s.text)}>{nb(s.text)}</span></p>
-    ))}
-    <span class="ai-note">Собрано ИИ по тексту кейса</span>
-  </div>
-)}
-
-<script>
-  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  document.querySelectorAll<HTMLButtonElement>('.ai-btn').forEach((btn) => {
-    const panel = document.getElementById(btn.getAttribute('aria-controls') || '');
-    const label = btn.querySelector('.ai-label');
-    if (!panel || !label) return;
-    const spans = Array.from(panel.querySelectorAll<HTMLSpanElement>('[data-full]'));
-    let timer = 0;
-    const type = () => {
-      // печатаем пункты по очереди, примерно за полторы секунды на всё саммери
-      const total = spans.reduce((n, s) => n + (s.dataset.full || '').length, 0);
-      const perTick = Math.max(2, Math.ceil(total / 90));
-      spans.forEach((s) => { s.textContent = ''; s.parentElement!.style.visibility = 'hidden'; });
-      let i = 0, j = 0;
-      const step = () => {
-        if (i >= spans.length) return;
-        const s = spans[i]; const full = s.dataset.full || '';
-        s.parentElement!.style.visibility = 'visible';
-        j = Math.min(full.length, j + perTick);
-        s.textContent = full.slice(0, j);
-        if (j >= full.length) { i++; j = 0; timer = window.setTimeout(step, 160); }
-        else timer = window.setTimeout(step, 16);
-      };
-      step();
-    };
-    btn.addEventListener('click', () => {
-      const open = btn.getAttribute('aria-expanded') !== 'true';
-      btn.setAttribute('aria-expanded', String(open));
-      label.textContent = open ? 'Свернуть' : 'Коротко за 20 секунд';
-      window.clearTimeout(timer);
-      panel.hidden = !open;
-      if (open && !reduce) type();
-      if (!open) spans.forEach((s) => { s.textContent = s.dataset.full || ''; s.parentElement!.style.visibility = 'visible'; });
-    });
-  });
-</script>

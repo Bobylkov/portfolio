@@ -27,7 +27,7 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
       <a href={href} style="font-size: 18px; line-height: 1.3; font-weight: 600; text-decoration: none" set:html={card.title} />
       <p style="margin: 0; line-height: 1.5; color: #444444; font-size: 14px" set:html={card.lead} />
       <div style="margin-top: 6px; display: flex; flex-direction: column; gap: 12px">
-        <CaseActions id={entry.id} href={href} cta={card.cta} links={card.links} summary={card.summary} draft={draft} />
+        <CaseActions href={href} cta={card.cta} links={card.links} draft={draft} />
       </div>
     </div>
   </article>
@@ -47,6 +47,6 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
         ))}
       </div>
     )}
-    <CaseActions id={entry.id} href={href} cta={card.cta} links={card.links} summary={card.summary} draft={draft} />
+    <CaseActions href={href} cta={card.cta} links={card.links} draft={draft} />
   </article>
 )}

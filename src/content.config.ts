@@ -63,8 +63,6 @@ const cases = defineCollection({
       images: z.array(image).optional(),
       cta: z.string().default('Читать кейс →'),
       links: z.array(link).optional(),
-      /** ИИ-саммери: 2–3 пункта «Задача / Что сделал / Итог», раскрываются под карточкой */
-      summary: z.array(z.object({ label: z.string(), text: z.string() })).optional(),
     }),
   }),
 });
