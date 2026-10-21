@@ -42,7 +42,7 @@ card:
     </div>
     <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
       <span style="font-size: 12px; color: #8A8A86">Мобильная версия</span>
-      <div class="dev dev-phone"><span class="dev-notch" aria-hidden="true"></span><div class="dev-scroll" tabindex="0" aria-label="Универсальный каталог в мобильной версии, прокручивается"><img src="/media/catalog/universalnyy-katalog-v-mobilnoy.webp" alt="Универсальный каталог в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
+      <div class="dev dev-phone"><div class="dev-scroll" tabindex="0" aria-label="Универсальный каталог в мобильной версии, прокручивается"><img src="/media/catalog/universalnyy-katalog-v-mobilnoy.webp" alt="Универсальный каталог в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
     </div>
   </div>
 
@@ -54,7 +54,7 @@ card:
       <span style="font-size: 12px; color: #8A8A86">Фильтры в мобильной версии</span>
       <p style="margin: 0; line-height: 1.6; color: #444444; font-size: 15px">На телефоне категории, сортировка и фильтры собраны в одной шторке, а выбранные значения видны чипами сверху.</p>
     </div>
-    <div class="dev dev-phone"><span class="dev-notch" aria-hidden="true"></span><div class="dev-scroll" tabindex="0" aria-label="Шторка фильтров в мобильной версии, прокручивается"><img src="/media/catalog/shtorka-filtrov-kategorii-sortirovka.webp" alt="Шторка фильтров: категории, сортировка, цена и бренды" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
+    <div class="dev dev-phone"><div class="dev-scroll" tabindex="0" aria-label="Шторка фильтров в мобильной версии, прокручивается"><img src="/media/catalog/shtorka-filtrov-kategorii-sortirovka.webp" alt="Шторка фильтров: категории, сортировка, цена и бренды" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
   </div>
 
 </section>
@@ -69,7 +69,7 @@ card:
     </div>
     <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
       <span style="font-size: 12px; color: #8A8A86">Мобильная версия</span>
-      <div class="dev dev-phone"><span class="dev-notch" aria-hidden="true"></span><div class="dev-scroll" tabindex="0" aria-label="Вертикальный каталог одежды в мобильной версии, прокручивается"><img src="/media/catalog/vertikalnyy-katalog-odezhdy-v.webp" alt="Вертикальный каталог одежды в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
+      <div class="dev dev-phone"><div class="dev-scroll" tabindex="0" aria-label="Вертикальный каталог одежды в мобильной версии, прокручивается"><img src="/media/catalog/vertikalnyy-katalog-odezhdy-v.webp" alt="Вертикальный каталог одежды в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
     </div>
   </div>
 
@@ -85,7 +85,7 @@ card:
     </div>
     <div style="display: flex; flex-direction: column; gap: 8px; min-width: 0">
       <span style="font-size: 12px; color: #8A8A86">Мобильная версия</span>
-      <div class="dev dev-phone"><span class="dev-notch" aria-hidden="true"></span><div class="dev-scroll" tabindex="0" aria-label="Страница товара в мобильной версии, прокручивается"><img src="/media/catalog/stranitsa-tovara-v-mobilnoy.webp" alt="Страница товара в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
+      <div class="dev dev-phone"><div class="dev-scroll" tabindex="0" aria-label="Страница товара в мобильной версии, прокручивается"><img src="/media/catalog/stranitsa-tovara-v-mobilnoy.webp" alt="Страница товара в мобильной версии" style="display: block; width: 100%; height: auto"></div><span class="scroll-hint" aria-hidden="true"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path class="sh-arrow" d="M6 9l6 6 6-6"></path></svg>Листайте внутри</span></div>
     </div>
   </div>
 
