@@ -39,10 +39,10 @@ card:
 
 <div style="position: relative; aspect-ratio: 16 / 10; background: #F4F4F4; border-radius: 24px; overflow: hidden; container-type: inline-size">
   <video src="/media/doctor/cover.mp4" autoplay muted loop playsinline aria-label="Анимация карточки врача: фото, рейтинг, цена со скидкой и свободные слоты" style="display: block; width: 100%; height: 100%; object-fit: cover"></video>
-  <div style="position: absolute; left: 57%; right: 4%; top: 50%; transform: translateY(-50%) rotate(-3deg); display: flex; flex-direction: column; gap: 3.2cqw; font-family: Caveat, 'Comic Sans MS', cursive; color: #1C4FD8; line-height: 1">
-    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 700">CR1 +10%</span></div>
-    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 700">26% → 46%</span><span style="font-size: 3.4cqw; font-weight: 500; color: #3A3A38">понимают цену (comprehension rate)</span></div>
-    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 700">−8%</span><span style="font-size: 3.4cqw; font-weight: 500; color: #3A3A38">bounce rate выдачи</span></div>
+  <div style="position: absolute; left: 57%; right: 4%; top: 50%; transform: translateY(-50%) rotate(-3deg); display: flex; flex-direction: column; gap: 3.2cqw; font-family: Pangolin, Caveat, 'Comic Sans MS', cursive; color: #1C4FD8; line-height: 1">
+    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 400; white-space: nowrap">CR1 +10%</span></div>
+    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 400; white-space: nowrap">26%<svg aria-hidden="true" viewBox="0 0 50 22" style="display: inline-block; width: 1.25em; height: 0.6em; margin: 0 0.12em; vertical-align: 0.08em; overflow: visible"><path d="M2 13 C 13 10, 28 9.5, 45 11.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M35 3.5 C 40 6.5, 44 9, 47.5 11.5 C 43.5 14, 39.5 16.5, 35.5 19.5" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/></svg>46%</span><span style="font-size: 3.2cqw; font-weight: 400; color: #3A3A38">понимают цену (comprehension rate)</span></div>
+    <div style="display: flex; flex-direction: column; gap: 0.6cqw"><span style="font-size: 6.4cqw; font-weight: 400; white-space: nowrap">−8%</span><span style="font-size: 3.2cqw; font-weight: 400; color: #3A3A38">bounce rate выдачи</span></div>
   </div>
 
 </div>

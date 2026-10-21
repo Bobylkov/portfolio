@@ -47,8 +47,6 @@ card:
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px">
     <span style="font-size: 13px; color: #8A8A86">Кусочек старого UI kit</span>
     <img src="/media/ds/fragment-starogo-ui-kit.jpg" alt="Фрагмент старого UI kit: блоки с текстом, картинками, иконками и видео" style="display: block; width: 100%; height: auto; border-radius: 24px; background: #2E3038">
-    <span style="font-size: 13px; color: #8A8A86">Лендинги, которые разбирали</span>
-    <img src="/media/ds/shest-dlinnyh-lendingov-ozon.jpg" alt="Шесть длинных лендингов Ozon, которые анализировали перед рефрешем" style="display: block; width: 100%; height: auto; border-radius: 24px; background: #2E3038">
   </div>
 
 </section>
@@ -103,7 +101,7 @@ card:
   <h2 style="margin: 0; font-size: 17px; font-weight: 600">Результат</h2>
   <p style="margin: 0; line-height: 1.6; color: #444444; font-size: 16px; max-width: 620px">На новом UI kit уже собрали сайты Ozon Seller, Ozon Реклама, Ozon Rocket и промо брендирования авто. Следующий шаг — масштабировать компоненты на все команды и завести единый Storybook.</p>
   <div style="display: flex; flex-direction: column; gap: 12px; margin-top: 12px">
-    <div class="g2"><img src="/media/ds/lendingi-ozon-seller-i.jpg" alt="Лендинги Ozon Seller и Ozon Реклама, собранные на новом UI kit" style="display: block; width: 100%; height: auto; border-radius: 18px; background: #2E3038"><img src="/media/ds/lendingi-ozon-rocket-i.jpg" alt="Лендинги Ozon Rocket и брендирования автомобилей на новом UI kit" style="display: block; width: 100%; height: auto; border-radius: 18px; background: #2E3038"></div>
+    <div style="display: flex; flex-direction: column; gap: 12px"><img src="/media/ds/lendingi-ozon-seller-i.jpg" alt="Лендинги Ozon Seller и Ozon Реклама, собранные на новом UI kit" style="display: block; width: 100%; height: auto; border-radius: 18px; background: #2E3038"><img src="/media/ds/lendingi-ozon-rocket-i.jpg" alt="Лендинги Ozon Rocket и брендирования автомобилей на новом UI kit" style="display: block; width: 100%; height: auto; border-radius: 18px; background: #2E3038"></div>
   </div>
 
 </section>

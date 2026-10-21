@@ -67,6 +67,10 @@ a:hover .vinyl { animation-duration: 1.2s; }
   #about { gap: 16px !important; }
   .home.shell h2[style*="font-size: 24px"] { font-size: 22px !important; }
   .ds-thumb { flex-basis: 100% !important; }
+  /* обложки на телефоне — на всю ширину экрана, без боковых полей */
+  .home .cover, .home .ds-thumb { width: calc(100% + 40px) !important; max-width: none !important; margin-left: -20px !important; margin-right: -20px !important; border-radius: 0 !important; }
+  .home .ds-thumb { flex-basis: auto !important; }
+  #ozon-rocket > .cover { aspect-ratio: 16 / 10 !important; }
   .pl-src { display: none; }
   .contact-cta { align-self: stretch !important; }
 
