@@ -7,4 +7,4 @@ interface Props {
 const { href, style } = Astro.props;
 const Tag = href ? 'a' : 'div';
 ---
-<Tag class="cover" href={href} style={style} data-cursor={href ? 'Смотреть кейс →' : undefined}><slot /></Tag>
+<Tag class="cover" href={href} style={style} data-cursor={href ? 'Читать кейс →' : undefined}><slot /></Tag>

@@ -12,7 +12,9 @@
     const move = () => { badge.style.left = `${x}px`; badge.style.top = `${y}px`; raf = 0; };
     document.querySelectorAll<HTMLElement>('[data-cursor]').forEach((el) => {
       el.addEventListener('mouseenter', (e) => {
-        badge.textContent = el.dataset.cursor || '';
+        // текст как на кнопке карточки: «Читать кейс →» или «Смотреть макеты →»
+        const pill = el.closest('article')?.querySelector<HTMLElement>('.cta-pill');
+        badge.textContent = pill?.dataset.label || el.dataset.cursor || '';
         x = e.clientX; y = e.clientY; move();
         badge.classList.add('on');
       });

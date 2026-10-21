@@ -90,7 +90,7 @@ a:hover .vinyl { animation-duration: 1.2s; }
   .case.shell h1 { font-size: 28px !important; }
 }
 
-/* Ховер на десктопе: над обложкой курсор превращается в бейдж «Смотреть кейс» */
+/* Ховер на десктопе: над обложкой курсор превращается в бейдж с текстом кнопки карточки («Читать кейс →») */
 @media (hover: hover) and (pointer: fine) {
   [data-cursor] { cursor: none; }
 }

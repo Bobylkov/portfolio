@@ -19,7 +19,7 @@ const thumbSize = card.layout === 'compact' && card.cover.kind === 'image' ? awa
 ---
 {card.layout === 'compact' && card.cover.kind === 'image' ? (
   <article id={`case-${entry.id}`} style="display: flex; gap: 20px; align-items: center; flex-wrap: wrap; margin-top: -24px">
-    <a class="ds-thumb" href={href} data-cursor="Смотреть кейс →" style="flex: 0 0 240px; display: block; border-radius: 18px; overflow: hidden; text-decoration: none">
+    <a class="ds-thumb" href={href} data-cursor="Читать кейс →" style="flex: 0 0 240px; display: block; border-radius: 18px; overflow: hidden; text-decoration: none">
       <img src={card.cover.src} alt={card.cover.alt} width={thumbSize?.width} height={thumbSize?.height} loading="lazy" decoding="async" style="display: block; width: 100%; height: auto" />
     </a>
     <div style="flex: 1 1 280px; min-width: 0; display: flex; flex-direction: column; gap: 8px">

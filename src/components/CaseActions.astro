@@ -14,7 +14,7 @@ const hasArrow = /→\s*$/.test(cta);
   {draft || !href ? (
     <span style="font-weight: 500; color: #8A8A86">{cta}</span>
   ) : (
-    <a class="cta-pill" href={href}>{label}{hasArrow && <span class="cta-arrow" aria-hidden="true">→</span>}</a>
+    <a class="cta-pill" href={href} data-label={cta}>{label}{hasArrow && <span class="cta-arrow" aria-hidden="true">→</span>}</a>
   )}
   {links?.map((l) => <a class="cta-link" href={l.href}>{l.label}</a>)}
 </div>
