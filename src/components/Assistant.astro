@@ -1,8 +1,8 @@
 ---
 // Ассистент Глеба: плавающая ИИ-искорка, по клику открывается чат
 // с готовыми вопросами. Ответы написаны заранее по кейсам и CV (без модели).
-// Свой вопрос сопоставляется с готовыми ответами по ключевым словам с допуском опечаток,
-// а если готового ответа нет — ищется по текстам кейсов (src/lib/assistant-search.ts).
+// Свой вопрос разбирает src/lib/assistant-search.ts: тема и сторона кейса, похожие формулировки, поиск по текстам кейсов.
+// База знаний — src/data/assistant.ts. Ассистент помнит тему разговора: «а метрики какие?» — про последний кейс.
 import { site } from '../data/site';
 import { answers } from '../data/assistant';
 ---
@@ -49,16 +49,15 @@ import { answers } from '../data/assistant';
       </button>
     </form>
   </section>
-
-  <script type="application/json" id="asst-data" is:inline set:html={JSON.stringify(answers).replace(/</g, '\\u003c')}></script>
 </div>
 
 <script>
-  import { buildIndex, respond, type Answer, type SearchIndex } from '../lib/assistant-search';
+  import { kb } from '../data/assistant';
+  import { buildBrain, buildIndex, replyFor, respond, type Answer, type Reply, type SearchIndex, type State } from '../lib/assistant-search';
   const root = document.querySelector<HTMLElement>('.asst');
-  const data = document.getElementById('asst-data');
-  if (root && data) {
-    const answers: Answer[] = JSON.parse(data.textContent || '[]');
+  if (root) {
+    const answers = kb.answers;
+    const brain = buildBrain(kb);
     const launch = root.querySelector<HTMLButtonElement>('.asst-launch')!;
     const panel = root.querySelector<HTMLElement>('.asst-panel')!;
     const log = root.querySelector<HTMLElement>('.asst-log')!;
@@ -68,7 +67,8 @@ import { answers } from '../data/assistant';
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const tg = root.dataset.telegram || '#';
     let greeted = false;
-    const asked: string[] = [];
+    // память разговора: тема последнего ответа и уже заданные вопросы
+    const state: State = { topic: undefined, asked: [] };
 
     // тексты кейсов для поиска: грузятся один раз, при первом открытии чата
     let indexPromise: Promise<SearchIndex | undefined> | undefined;
@@ -132,14 +132,10 @@ import { answers } from '../data/assistant';
     const ask = async (q: string, a?: Answer) => {
       log.querySelectorAll('.asst-sugg').forEach((el) => el.remove());
       add('me', q);
-      if (a) {
-        asked.push(a.id);
-        reply(a.a, (a.related ?? []).filter((id) => !asked.includes(id)));
-        return;
-      }
-      const r = respond(q, answers, await loadIndex(), asked);
-      const id = r.via === 'faq' ? answers.find((x) => x.a === r.html)?.id : undefined;
-      if (id) asked.push(id);
+      const r: Reply = a ? replyFor(a, kb, state) : respond(q, brain, await loadIndex(), state);
+      if (r.id && r.id !== 'more') state.asked.push(r.id);
+      // тема держится, пока не заговорили о другом кейсе: после «а зарплата?» можно вернуться к «а метрики?»
+      state.topic = r.topic ?? state.topic;
       if (r.via === 'none') {
         reply(`Не нашёл ответа ни в готовых вопросах, ни в кейсах. Попробуйте спросить иначе или выберите вопрос ниже. А обсудить что-то своё лучше с Глебом — <a href="${tg}" target="_blank" rel="noopener">напишите ему в Telegram</a>.`, r.suggest);
       } else reply(r.html, r.suggest);
