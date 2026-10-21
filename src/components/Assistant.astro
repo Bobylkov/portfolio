@@ -1,7 +1,8 @@
 ---
 // Ассистент Глеба: плавающая ИИ-искорка, по клику открывается чат
 // с готовыми вопросами. Ответы написаны заранее по кейсам и CV (без модели).
-// Свой вопрос сопоставляется с готовыми по ключевым словам.
+// Свой вопрос сопоставляется с готовыми ответами по ключевым словам с допуском опечаток,
+// а если готового ответа нет — ищется по текстам кейсов (src/lib/assistant-search.ts).
 import { site } from '../data/site';
 import { answers } from '../data/assistant';
 ---
@@ -38,7 +39,7 @@ import { answers } from '../data/assistant';
     </header>
     <div class="asst-log" aria-live="polite"></div>
     <div class="asst-chips">
-      {answers.map((a) => <button type="button" class="asst-chip" data-id={a.id}>{a.q}</button>)}
+      {answers.filter((a) => a.chip).map((a) => <button type="button" class="asst-chip" data-id={a.id}>{a.q}</button>)}
     </div>
     <form class="asst-form">
       <label class="sr-only" for="asst-input">Ваш вопрос</label>
@@ -53,7 +54,7 @@ import { answers } from '../data/assistant';
 </div>
 
 <script>
-  type Answer = { id: string; q: string; a: string; keys: string[] };
+  import { buildIndex, respond, type Answer, type SearchIndex } from '../lib/assistant-search';
   const root = document.querySelector<HTMLElement>('.asst');
   const data = document.getElementById('asst-data');
   if (root && data) {
@@ -67,6 +68,15 @@ import { answers } from '../data/assistant';
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const tg = root.dataset.telegram || '#';
     let greeted = false;
+    const asked: string[] = [];
+
+    // тексты кейсов для поиска: грузятся один раз, при первом открытии чата
+    let indexPromise: Promise<SearchIndex | undefined> | undefined;
+    const loadIndex = () =>
+      (indexPromise ??= fetch('/assistant-index.json')
+        .then((r) => (r.ok ? r.json() : []))
+        .then(buildIndex)
+        .catch(() => undefined));
 
     const store = (k: string, v?: string) => {
       try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch { /* приватный режим */ }
@@ -89,32 +99,50 @@ import { answers } from '../data/assistant';
       scrollDown();
       return m;
     };
-    const reply = (html: string) => {
+    // кнопки «спросить ещё» под ответом
+    const suggest = (ids: string[]) => {
+      log.querySelectorAll('.asst-sugg').forEach((el) => el.remove());
+      const items = ids.map((id) => answers.find((x) => x.id === id)).filter((x): x is Answer => !!x);
+      if (!items.length) return;
+      const row = document.createElement('div');
+      row.className = 'asst-sugg';
+      for (const a of items) {
+        const b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'asst-chip';
+        b.textContent = a.q;
+        b.addEventListener('click', () => ask(a.q, a));
+        row.appendChild(b);
+      }
+      log.appendChild(row);
+      scrollDown();
+    };
+
+    const reply = (html: string, next: string[] = []) => {
       const typing = add('bot', '<span class="asst-dots"><i></i><i></i><i></i></span>');
       typing.classList.add('asst-typing');
       window.setTimeout(() => {
         typing.classList.remove('asst-typing');
         typing.innerHTML = html;
         scrollDown();
+        suggest(next);
       }, reduce ? 0 : 650);
     };
 
-    const norm = (s: string) => s.toLowerCase().replace(/ё/g, 'е');
-    const match = (text: string): Answer | undefined => {
-      const t = norm(text);
-      let best: Answer | undefined; let score = 0;
-      for (const a of answers) {
-        const s = a.keys.reduce((n, k) => n + (t.includes(k) ? k.length : 0), 0);
-        if (s > score) { score = s; best = a; }
-      }
-      return best;
-    };
-
-    const ask = (q: string, a?: Answer) => {
+    const ask = async (q: string, a?: Answer) => {
+      log.querySelectorAll('.asst-sugg').forEach((el) => el.remove());
       add('me', q);
-      const found = a ?? match(q);
-      if (found) reply(found.a);
-      else reply(`Пока я отвечаю только на готовые вопросы — выберите один из них ниже. А если хотите обсудить что-то своё, лучше <a href="${tg}" target="_blank" rel="noopener">напишите Глебу в Telegram</a>.`);
+      if (a) {
+        asked.push(a.id);
+        reply(a.a, (a.related ?? []).filter((id) => !asked.includes(id)));
+        return;
+      }
+      const r = respond(q, answers, await loadIndex(), asked);
+      const id = r.via === 'faq' ? answers.find((x) => x.a === r.html)?.id : undefined;
+      if (id) asked.push(id);
+      if (r.via === 'none') {
+        reply(`Не нашёл ответа ни в готовых вопросах, ни в кейсах. Попробуйте спросить иначе или выберите вопрос ниже. А обсудить что-то своё лучше с Глебом — <a href="${tg}" target="_blank" rel="noopener">напишите ему в Telegram</a>.`, r.suggest);
+      } else reply(r.html, r.suggest);
     };
 
     const open = () => {
@@ -122,6 +150,7 @@ import { answers } from '../data/assistant';
       launch.setAttribute('aria-expanded', 'true');
       root.classList.add('is-open');
       hideBubble();
+      loadIndex();
       if (!greeted) {
         greeted = true;
         reply('Привет! Я ассистент Глеба. Расскажу про его опыт и кейсы — выберите вопрос или напишите свой.');
