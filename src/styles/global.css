@@ -134,12 +134,10 @@ a:hover .vinyl { animation-duration: 1.2s; }
 
 /* Кнопки под карточкой кейса: чёрная пилюля «Читать кейс» */
 .case-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 12px; }
-.cta-pill { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: #33332F; color: #FFFFFF; font-weight: 500; font-size: 15px; line-height: 1; text-decoration: none; transition: background .25s ease, transform .25s ease; }
-.cta-pill:hover { color: #FFFFFF; background: #4A4A45; }
+.cta-pill { display: inline-flex; align-items: center; gap: 8px; padding: 11px 18px; border-radius: 999px; background: #111111; color: #FFFFFF; font-weight: 500; font-size: 15px; line-height: 1; text-decoration: none; transition: background .25s ease, transform .25s ease; }
+.cta-pill:hover { color: #FFFFFF; background: #2B2B2B; }
 .cta-arrow { display: inline-block; transition: transform .25s ease; }
 .cta-pill:hover .cta-arrow { transform: translateX(3px); }
 .cta-link { font-weight: 500; color: #6B6B6B; }
 .cta-pill:focus-visible { outline: 2px solid #1C4FD8; outline-offset: 3px; }
 @media (prefers-reduced-motion: reduce) { .cta-pill, .cta-arrow { transition: none; } }
-.cta-pill-plain { transition: background .25s ease; }
-.cta-pill-plain:hover { color: #FFFFFF; background: #4A4A45 !important; }
