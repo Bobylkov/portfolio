@@ -1,0 +1,163 @@
+---
+// Ассистент Глеба: плавающий персонаж в капюшоне, по клику открывается чат
+// с готовыми вопросами. Ответы написаны заранее по кейсам и CV (без модели).
+// Свой вопрос сопоставляется с готовыми по ключевым словам.
+import { site } from '../data/site';
+import { answers } from '../data/assistant';
+---
+<div class="asst" data-telegram={site.telegram}>
+  <div class="asst-bubble" hidden>
+    <span>Привет! Спроси меня про кейсы</span>
+    <button type="button" class="asst-bubble-x" aria-label="Скрыть подсказку">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+    </button>
+  </div>
+
+  <button type="button" class="asst-launch" aria-label="Открыть чат с ассистентом Глеба" aria-expanded="false" aria-controls="asst-panel">
+    <svg class="asst-face" viewBox="0 0 120 120" aria-hidden="true">
+      <circle cx="60" cy="60" r="58" fill="#FFE27A"></circle>
+      <g class="asst-spark"><path d="M99 21 L99 31 M94 26 L104 26" stroke="#111" stroke-width="3.6" stroke-linecap="round"></path></g>
+      <g class="asst-spark asst-spark-2"><path d="M17 40 L17 47 M13.5 43.5 L20.5 43.5" stroke="#111" stroke-width="3.2" stroke-linecap="round"></path></g>
+      <g class="asst-head">
+        <path d="M27 108 C 22 72, 29 33, 60 29 C 91 33, 98 72, 93 108" fill="#1C4FD8"></path>
+        <path d="M40 100 C 36 75, 42 50, 62 48 C 82 50, 86 75, 82 100 Z" fill="#FFD9B8"></path>
+        <g fill="none" stroke="#111" stroke-width="4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M27 108 C 22 72, 29 33, 60 29 C 91 33, 98 72, 93 108"></path>
+          <path d="M40 100 C 36 75, 42 50, 62 48 C 82 50, 86 75, 82 100"></path>
+          <path d="M48 64 L 57 61.5"></path><path d="M67 61.5 L 76 64"></path>
+          <path d="M54 83 C 58 87.5, 66 87.5, 70 83"></path>
+          <path d="M47 100 L 45 112"></path><path d="M77 100 L 79 112"></path>
+        </g>
+        <g class="asst-eyes" fill="#111"><circle cx="53" cy="71" r="3.6"></circle><circle cx="71" cy="71" r="3.6"></circle></g>
+        <g fill="#FF8FA3" opacity=".75"><ellipse cx="46" cy="80" rx="4" ry="2.6"></ellipse><ellipse cx="78" cy="80" rx="4" ry="2.6"></ellipse></g>
+      </g>
+    </svg>
+  </button>
+
+  <section class="asst-panel" id="asst-panel" role="dialog" aria-label="Чат с ассистентом Глеба" hidden>
+    <header class="asst-head-bar">
+      <span class="asst-mini" aria-hidden="true">
+        <svg viewBox="0 0 120 120"><circle cx="60" cy="60" r="58" fill="#FFE27A"></circle><path d="M27 108 C 22 72, 29 33, 60 29 C 91 33, 98 72, 93 108" fill="#1C4FD8" stroke="#111" stroke-width="5"></path><path d="M40 100 C 36 75, 42 50, 62 48 C 82 50, 86 75, 82 100 Z" fill="#FFD9B8" stroke="#111" stroke-width="5"></path><circle cx="53" cy="71" r="4.5" fill="#111"></circle><circle cx="71" cy="71" r="4.5" fill="#111"></circle><path d="M54 83 C 58 87.5, 66 87.5, 70 83" fill="none" stroke="#111" stroke-width="5" stroke-linecap="round"></path></svg>
+      </span>
+      <span class="asst-title"><b>Ассистент Глеба</b><span>Отвечаю по кейсам и CV</span></span>
+      <button type="button" class="asst-close" aria-label="Закрыть чат">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"></path></svg>
+      </button>
+    </header>
+    <div class="asst-log" aria-live="polite"></div>
+    <div class="asst-chips">
+      {answers.map((a) => <button type="button" class="asst-chip" data-id={a.id}>{a.q}</button>)}
+    </div>
+    <form class="asst-form">
+      <label class="sr-only" for="asst-input">Ваш вопрос</label>
+      <input id="asst-input" class="asst-input" type="text" placeholder="Спросите про опыт или кейсы" autocomplete="off" maxlength="300" />
+      <button type="submit" class="asst-send" aria-label="Отправить">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </button>
+    </form>
+  </section>
+
+  <script type="application/json" id="asst-data" is:inline set:html={JSON.stringify(answers).replace(/</g, '\\u003c')}></script>
+</div>
+
+<script>
+  type Answer = { id: string; q: string; a: string; keys: string[] };
+  const root = document.querySelector<HTMLElement>('.asst');
+  const data = document.getElementById('asst-data');
+  if (root && data) {
+    const answers: Answer[] = JSON.parse(data.textContent || '[]');
+    const launch = root.querySelector<HTMLButtonElement>('.asst-launch')!;
+    const panel = root.querySelector<HTMLElement>('.asst-panel')!;
+    const log = root.querySelector<HTMLElement>('.asst-log')!;
+    const form = root.querySelector<HTMLFormElement>('.asst-form')!;
+    const input = root.querySelector<HTMLInputElement>('.asst-input')!;
+    const bubble = root.querySelector<HTMLElement>('.asst-bubble')!;
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const tg = root.dataset.telegram || '#';
+    let greeted = false;
+
+    const store = (k: string, v?: string) => {
+      try { if (v === undefined) return sessionStorage.getItem(k); sessionStorage.setItem(k, v); } catch { /* приватный режим */ }
+      return null;
+    };
+
+    // подсказка рядом с персонажем — один раз за визит
+    if (!store('asst-bubble')) {
+      window.setTimeout(() => { if (panel.hidden) bubble.hidden = false; }, 3500);
+    }
+    const hideBubble = () => { bubble.hidden = true; store('asst-bubble', '1'); };
+    root.querySelector('.asst-bubble-x')?.addEventListener('click', hideBubble);
+
+    const scrollDown = () => { log.scrollTop = log.scrollHeight; };
+    const add = (who: 'bot' | 'me', html: string) => {
+      const m = document.createElement('div');
+      m.className = `asst-msg asst-${who}`;
+      if (who === 'me') m.textContent = html; else m.innerHTML = html;
+      log.appendChild(m);
+      scrollDown();
+      return m;
+    };
+    const reply = (html: string) => {
+      const typing = add('bot', '<span class="asst-dots"><i></i><i></i><i></i></span>');
+      typing.classList.add('asst-typing');
+      window.setTimeout(() => {
+        typing.classList.remove('asst-typing');
+        typing.innerHTML = html;
+        scrollDown();
+      }, reduce ? 0 : 650);
+    };
+
+    const norm = (s: string) => s.toLowerCase().replace(/ё/g, 'е');
+    const match = (text: string): Answer | undefined => {
+      const t = norm(text);
+      let best: Answer | undefined; let score = 0;
+      for (const a of answers) {
+        const s = a.keys.reduce((n, k) => n + (t.includes(k) ? k.length : 0), 0);
+        if (s > score) { score = s; best = a; }
+      }
+      return best;
+    };
+
+    const ask = (q: string, a?: Answer) => {
+      add('me', q);
+      const found = a ?? match(q);
+      if (found) reply(found.a);
+      else reply(`Пока я отвечаю только на готовые вопросы — выберите один из них ниже. А если хотите обсудить что-то своё, лучше <a href="${tg}" target="_blank" rel="noopener">напишите Глебу в Telegram</a>.`);
+    };
+
+    const open = () => {
+      panel.hidden = false;
+      launch.setAttribute('aria-expanded', 'true');
+      root.classList.add('is-open');
+      hideBubble();
+      if (!greeted) {
+        greeted = true;
+        reply('Привет! Я ассистент Глеба. Расскажу про его опыт и кейсы — выберите вопрос или напишите свой.');
+      }
+      window.setTimeout(() => input.focus({ preventScroll: true }), 50);
+    };
+    const close = () => {
+      panel.hidden = true;
+      launch.setAttribute('aria-expanded', 'false');
+      root.classList.remove('is-open');
+      launch.focus({ preventScroll: true });
+    };
+
+    launch.addEventListener('click', () => (panel.hidden ? open() : close()));
+    root.querySelector('.asst-close')?.addEventListener('click', close);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && !panel.hidden) close(); });
+    root.querySelectorAll<HTMLButtonElement>('.asst-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        const a = answers.find((x) => x.id === chip.dataset.id);
+        if (a) ask(a.q, a);
+      });
+    });
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const q = input.value.trim();
+      if (!q) return;
+      input.value = '';
+      ask(q);
+    });
+  }
+</script>
