@@ -214,8 +214,19 @@ a:hover .vinyl { animation-duration: 1.2s; }
 .asst-head-bar, .asst-chips, .asst-form { flex-shrink: 0; }
 .asst-quote { display: block; margin: 6px 0 8px; padding-left: 10px; border-left: 3px solid #C9D6F8; color: #444444; }
 .asst-sugg { align-self: flex-start; display: flex; flex-wrap: wrap; gap: 6px; max-width: 100%; animation: asstPop .25s ease-out; }
-.asst-chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 16px 10px; scrollbar-width: none; }
+.asst-chips { display: flex; gap: 8px; overflow-x: auto; padding: 4px 16px 10px; scrollbar-width: none; overscroll-behavior-x: contain; }
 .asst-chips::-webkit-scrollbar { display: none; }
+/* затухание у края, за которым есть ещё кнопки */
+.asst-chips.fade-right { -webkit-mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, #000 calc(100% - 40px), transparent); }
+.asst-chips.fade-left { -webkit-mask-image: linear-gradient(to right, transparent, #000 40px); mask-image: linear-gradient(to right, transparent, #000 40px); }
+.asst-chips.fade-left.fade-right { -webkit-mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); mask-image: linear-gradient(to right, transparent, #000 40px, #000 calc(100% - 40px), transparent); }
+/* с мышью — тонкая полоса прокрутки, чтобы было видно, что ряд листается */
+@media (pointer: fine) {
+  .asst-chips { scrollbar-width: thin; scrollbar-color: #D5DCF0 transparent; padding-bottom: 8px; }
+  .asst-chips::-webkit-scrollbar { display: block; height: 6px; }
+  .asst-chips::-webkit-scrollbar-thumb { background: #D5DCF0; border-radius: 3px; }
+  .asst-chips::-webkit-scrollbar-track { background: transparent; }
+}
 .asst-chip { flex: 0 0 auto; padding: 8px 12px; border: 0; border-radius: 999px; background: #EEF2FD; color: #1C4FD8; font: 500 13px/1.2 Onest, system-ui, sans-serif; cursor: pointer; transition: background .25s; }
 .asst-chip:hover { background: #E2E9FC; }
 .asst-form { display: flex; gap: 8px; padding: 10px 12px 12px; border-top: 1px solid #EDEDEA; }

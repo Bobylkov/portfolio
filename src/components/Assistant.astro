@@ -91,6 +91,23 @@ import { answers } from '../data/assistant';
     root.querySelector('.asst-bubble-x')?.addEventListener('click', hideBubble);
 
     const scrollDown = () => { log.scrollTop = log.scrollHeight; };
+
+    // Ряд кнопок-вопросов листается вбок. Колесо мыши крутит вертикально — переводим его в горизонтальную прокрутку,
+    // иначе на Windows с мышью до последних кнопок не добраться. Края с продолжением подсвечиваются затуханием.
+    const chips = root.querySelector<HTMLElement>('.asst-chips')!;
+    const updateFade = () => {
+      const max = chips.scrollWidth - chips.clientWidth;
+      chips.classList.toggle('fade-right', chips.scrollLeft < max - 2);
+      chips.classList.toggle('fade-left', chips.scrollLeft > 2);
+    };
+    chips.addEventListener('wheel', (e) => {
+      if (Math.abs(e.deltaY) <= Math.abs(e.deltaX) || chips.scrollWidth <= chips.clientWidth) return;
+      e.preventDefault();
+      chips.scrollLeft += e.deltaY;
+      updateFade();
+    }, { passive: false });
+    chips.addEventListener('scroll', updateFade, { passive: true });
+    window.addEventListener('resize', updateFade);
     const add = (who: 'bot' | 'me', html: string) => {
       const m = document.createElement('div');
       m.className = `asst-msg asst-${who}`;
@@ -151,7 +168,7 @@ import { answers } from '../data/assistant';
         greeted = true;
         reply('Привет! Я Глебашкин, ассистент Глеба. Расскажу про его опыт и кейсы — выберите вопрос или напишите свой.');
       }
-      window.setTimeout(() => input.focus({ preventScroll: true }), 50);
+      window.setTimeout(() => { input.focus({ preventScroll: true }); updateFade(); }, 50);
     };
     const close = () => {
       panel.hidden = true;
